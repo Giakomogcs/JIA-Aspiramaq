@@ -1877,7 +1877,9 @@
         font-size: 13px;
         font-weight: 700;
         padding: 7px 12px;
-        transition: background 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
 
       .cases-tab.active {
@@ -1901,7 +1903,9 @@
         border-radius: 10px;
         padding: 12px 14px;
         margin-bottom: 10px;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
       }
 
       .case-card:hover {
@@ -2138,7 +2142,11 @@
 
       .starter-card {
         border: 1px solid var(--border-color);
-        background: linear-gradient(180deg, var(--bg-message-assistant), rgba(255, 255, 255, 0.72));
+        background: linear-gradient(
+          180deg,
+          var(--bg-message-assistant),
+          rgba(255, 255, 255, 0.72)
+        );
         color: var(--text-primary);
         border-radius: 8px;
         padding: 16px;
@@ -2153,11 +2161,19 @@
         min-height: 96px;
         position: relative;
         overflow: hidden;
-        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
+        transition:
+          border-color 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
       }
 
       [data-theme="dark"] .starter-card {
-        background: linear-gradient(180deg, var(--bg-message-assistant), rgba(26, 35, 50, 0.82));
+        background: linear-gradient(
+          180deg,
+          var(--bg-message-assistant),
+          rgba(26, 35, 50, 0.82)
+        );
       }
 
       .starter-card::after {
@@ -2451,11 +2467,7 @@
                 <i data-lucide="moon" style="width: 14px; height: 14px"></i>
                 <span>Tema</span>
               </button>
-              <button
-                class="footer-btn"
-                id="docsBtn"
-                title="Documentos do RAG"
-              >
+              <button class="footer-btn" id="docsBtn" title="Documentos do RAG">
                 <i
                   data-lucide="folder-open"
                   style="width: 14px; height: 14px"
@@ -2564,33 +2576,68 @@
               Estou pronto para responder dúvidas sobre a Aspiramaq, nossos
               produtos e serviços industriais.
             </div>
-            <div class="starter-actions" aria-label="Atalhos para iniciar conversa">
-              <button class="starter-card" type="button" data-starter="new-case">
-                <span class="starter-icon"><i data-lucide="clipboard-list"></i></span>
+            <div
+              class="starter-actions"
+              aria-label="Atalhos para iniciar conversa"
+            >
+              <button
+                class="starter-card"
+                type="button"
+                data-starter="new-case"
+              >
+                <span class="starter-icon"
+                  ><i data-lucide="clipboard-list"></i
+                ></span>
                 <span class="starter-body">
                   <span class="starter-title">Ajuda com caso novo</span>
-                  <span class="starter-copy">Abre um formulário por segmento para filtrar histórico e fechar contexto.</span>
+                  <span class="starter-copy"
+                    >Abre um formulário por segmento para filtrar histórico e
+                    fechar contexto.</span
+                  >
                 </span>
               </button>
-              <button class="starter-card" type="button" data-starter="filter-help">
+              <button
+                class="starter-card"
+                type="button"
+                data-starter="filter-help"
+              >
                 <span class="starter-icon"><i data-lucide="filter"></i></span>
                 <span class="starter-body">
                   <span class="starter-title">Filtro saturando ou troca</span>
-                  <span class="starter-copy">Coleta os poucos dados que definem filtro, óleo, umidade e temperatura.</span>
+                  <span class="starter-copy"
+                    >Coleta os poucos dados que definem filtro, óleo, umidade e
+                    temperatura.</span
+                  >
                 </span>
               </button>
-              <button class="starter-card" type="button" data-starter="problem-help">
+              <button
+                class="starter-card"
+                type="button"
+                data-starter="problem-help"
+              >
                 <span class="starter-icon"><i data-lucide="wrench"></i></span>
                 <span class="starter-body">
                   <span class="starter-title">Equipamento com problema</span>
-                  <span class="starter-copy">Organiza sintomas, processo e condição para diagnosticar sem chute.</span>
+                  <span class="starter-copy"
+                    >Organiza sintomas, processo e condição para diagnosticar
+                    sem chute.</span
+                  >
                 </span>
               </button>
-              <button class="starter-card" type="button" data-starter="cases-modal">
-                <span class="starter-icon"><i data-lucide="briefcase"></i></span>
+              <button
+                class="starter-card"
+                type="button"
+                data-starter="cases-modal"
+              >
+                <span class="starter-icon"
+                  ><i data-lucide="briefcase"></i
+                ></span>
                 <span class="starter-body">
                   <span class="starter-title">Consultar históricos</span>
-                  <span class="starter-copy">Abre casos reais e formulários para usar como contexto do atendimento.</span>
+                  <span class="starter-copy"
+                    >Abre casos reais e formulários para usar como contexto do
+                    atendimento.</span
+                  >
                 </span>
               </button>
             </div>
@@ -2845,7 +2892,10 @@
           <span id="casesPageInfo" class="cases-page-info">—</span>
           <button class="docs-btn" id="casesNextBtn" disabled>
             Próxima
-            <i data-lucide="chevron-right" style="width: 14px; height: 14px"></i>
+            <i
+              data-lucide="chevron-right"
+              style="width: 14px; height: 14px"
+            ></i>
           </button>
         </div>
         <div class="docs-status" id="casesStatusWrap">
@@ -3443,7 +3493,7 @@
             options: ["Sim", "Não", "Não sei"],
           },
           {
-            q: "Quantas bocas e qual Ø de cada uma? (ex.: 3 de 5\")",
+            q: 'Quantas bocas e qual Ø de cada uma? (ex.: 3 de 5")',
           },
           {
             q: "Distância até o coletor (m) e nº de curvas?",
@@ -3460,11 +3510,7 @@
           },
           {
             q: "Há exigência de alta eficiência?",
-            options: [
-              "Coleta operacional",
-              "Alta eficiência",
-              "Não sei",
-            ],
+            options: ["Coleta operacional", "Alta eficiência", "Não sei"],
           },
         ];
 
@@ -3478,8 +3524,14 @@
         return String(content || "")
           .replace(/<!--\s*QUICK_FORM\s*:\s*\[[\s\S]*?\]\s*-->/gi, "")
           .replace(/<!--\s*QUICK_REPLIES\s*:\s*\[[\s\S]*?\]\s*-->/gi, "")
-          .replace(/Entendi que voce quer abrir um caso tecnico\. Para agilizar, preencha este formulario:\s*/gi, "")
-          .replace(/Entendi que você quer abrir um caso técnico\. Para agilizar, preencha este formulário:\s*/gi, "")
+          .replace(
+            /Entendi que voce quer abrir um caso tecnico\. Para agilizar, preencha este formulario:\s*/gi,
+            "",
+          )
+          .replace(
+            /Entendi que você quer abrir um caso técnico\. Para agilizar, preencha este formulário:\s*/gi,
+            "",
+          )
           .trim();
       }
 
@@ -3545,7 +3597,13 @@
           {
             id: "processo",
             q: "Qual é o processo gerador?",
-            options: ["Lixadeira / serra", "Marcenaria geral", "MDF / fórmica", "CNC / fresa", "Outro"],
+            options: [
+              "Lixadeira / serra",
+              "Marcenaria geral",
+              "MDF / fórmica",
+              "CNC / fresa",
+              "Outro",
+            ],
           },
           {
             id: "material",
@@ -3557,46 +3615,89 @@
             q: "O cliente trata esse pó como combustível/ATEX?",
             options: ["Sim, é ATEX", "Não é ATEX", "Não sei"],
           },
-          { id: "bocas", q: "Quantas bocas, qual diâmetro de cada uma e quantas trabalham simultâneas?" },
-          { id: "rede", q: "Distância máquina até coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantas bocas, qual diâmetro de cada uma e quantas trabalham simultâneas?",
+          },
+          {
+            id: "rede",
+            q: "Distância máquina até coletor em metros e número de curvas?",
+          },
           {
             id: "corrente",
             q: "Temperatura, umidade ou óleo na corrente?",
-            options: ["Seco e frio", "Esquenta um pouco", "Tem umidade", "Tem óleo", "Não sei"],
+            options: [
+              "Seco e frio",
+              "Esquenta um pouco",
+              "Tem umidade",
+              "Tem óleo",
+              "Não sei",
+            ],
           },
           {
             id: "eficiencia",
             q: "Há exigência de alta eficiência ou norma de emissão?",
-            options: ["Só coleta operacional", "Precisa alta eficiência", "Não sei"],
+            options: [
+              "Só coleta operacional",
+              "Precisa alta eficiência",
+              "Não sei",
+            ],
           },
         ],
         solda: [
           {
             id: "processo",
             q: "Qual o processo de solda ou corte?",
-            options: ["Solda MIG/MAG", "Solda TIG", "Corte plasma", "Oxicorte", "Outro"],
+            options: [
+              "Solda MIG/MAG",
+              "Solda TIG",
+              "Corte plasma",
+              "Oxicorte",
+              "Outro",
+            ],
           },
           {
             id: "material",
             q: "Qual o metal-base?",
-            options: ["Aço carbono", "Inox", "Alumínio", "Galvanizado", "Não sei"],
+            options: [
+              "Aço carbono",
+              "Inox",
+              "Alumínio",
+              "Galvanizado",
+              "Não sei",
+            ],
           },
           {
             id: "corrente",
             q: "A chapa tem óleo/proteção ou gera névoa?",
             options: ["Sim, tem óleo", "Chapa limpa", "Tem umidade", "Não sei"],
           },
-          { id: "bocas", q: "Quantos postos, captação por braço/coifa e quantos simultâneos?" },
-          { id: "rede", q: "Distância posto até coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantos postos, captação por braço/coifa e quantos simultâneos?",
+          },
+          {
+            id: "rede",
+            q: "Distância posto até coletor em metros e número de curvas?",
+          },
           {
             id: "calor",
             q: "Como é o calor perto da captação?",
-            options: ["Esquenta muito", "Morno", "Temperatura ambiente", "Não sei"],
+            options: [
+              "Esquenta muito",
+              "Morno",
+              "Temperatura ambiente",
+              "Não sei",
+            ],
           },
           {
             id: "eficiencia",
             q: "Há exigência de eficiência para fumos metálicos?",
-            options: ["Só coleta operacional", "Precisa alta eficiência", "Não sei"],
+            options: [
+              "Só coleta operacional",
+              "Precisa alta eficiência",
+              "Não sei",
+            ],
           },
         ],
         usinagem: [
@@ -3615,8 +3716,14 @@
             q: "Existe refrigeração/óleo na operação?",
             options: ["A seco", "Óleo solúvel", "Óleo integral", "Não sei"],
           },
-          { id: "bocas", q: "Quantas captações, diâmetro de cada uma e simultaneidade?" },
-          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantas captações, diâmetro de cada uma e simultaneidade?",
+          },
+          {
+            id: "rede",
+            q: "Distância até o coletor em metros e número de curvas?",
+          },
           {
             id: "temperatura",
             q: "Temperatura da corrente?",
@@ -3632,7 +3739,13 @@
           {
             id: "processo",
             q: "Qual processo gera o pó?",
-            options: ["Moagem", "Peneiramento", "Ensaque", "Transporte", "Outro"],
+            options: [
+              "Moagem",
+              "Peneiramento",
+              "Ensaque",
+              "Transporte",
+              "Outro",
+            ],
           },
           {
             id: "material",
@@ -3644,8 +3757,14 @@
             q: "O cliente trata esse pó como combustível/ATEX?",
             options: ["Sim, é ATEX", "Não é ATEX", "Não sei"],
           },
-          { id: "bocas", q: "Quantos pontos, diâmetro de cada um e simultaneidade?" },
-          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantos pontos, diâmetro de cada um e simultaneidade?",
+          },
+          {
+            id: "rede",
+            q: "Distância até o coletor em metros e número de curvas?",
+          },
           {
             id: "corrente",
             q: "Há umidade, vapor ou pó higroscópico?",
@@ -3661,7 +3780,13 @@
           {
             id: "processo",
             q: "Qual processo gera a poeira?",
-            options: ["Moinho", "Britador", "Ensacadeira", "Transferência", "Outro"],
+            options: [
+              "Moinho",
+              "Britador",
+              "Ensacadeira",
+              "Transferência",
+              "Outro",
+            ],
           },
           {
             id: "material",
@@ -3673,8 +3798,14 @@
             q: "O pó é abrasivo e/ou quente?",
             options: ["Abrasivo", "Quente", "Abrasivo e quente", "Não sei"],
           },
-          { id: "bocas", q: "Quantos pontos, diâmetro de cada um e simultaneidade?" },
-          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantos pontos, diâmetro de cada um e simultaneidade?",
+          },
+          {
+            id: "rede",
+            q: "Distância até o coletor em metros e número de curvas?",
+          },
           {
             id: "corrente",
             q: "Temperatura contínua e picos, se souber?",
@@ -3695,15 +3826,27 @@
           {
             id: "material",
             q: "Qual abrasivo/material principal?",
-            options: ["Granalha de aço", "Óxido de alumínio", "Microesfera", "Areia/sílica", "Não sei"],
+            options: [
+              "Granalha de aço",
+              "Óxido de alumínio",
+              "Microesfera",
+              "Areia/sílica",
+              "Não sei",
+            ],
           },
           {
             id: "reciclagem",
             q: "O abrasivo é reciclado no processo?",
             options: ["Sim", "Não", "Não sei"],
           },
-          { id: "bocas", q: "Quantas captações/pontos, diâmetro e simultaneidade?" },
-          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantas captações/pontos, diâmetro e simultaneidade?",
+          },
+          {
+            id: "rede",
+            q: "Distância até o coletor em metros e número de curvas?",
+          },
           {
             id: "corrente",
             q: "Há umidade ou óleo junto da poeira?",
@@ -3719,15 +3862,27 @@
           {
             id: "processo",
             q: "Qual fonte principal?",
-            options: ["Chapa/fritura", "Forno", "Char-broiler", "Coifa geral", "Outro"],
+            options: [
+              "Chapa/fritura",
+              "Forno",
+              "Char-broiler",
+              "Coifa geral",
+              "Outro",
+            ],
           },
           {
             id: "material",
             q: "O que predomina na corrente?",
             options: ["Gordura", "Fumaça", "Vapor", "Misturado", "Não sei"],
           },
-          { id: "bocas", q: "Quantidade de coifas/pontos, dimensões ou diâmetros e simultaneidade?" },
-          { id: "rede", q: "Distância até o equipamento/coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantidade de coifas/pontos, dimensões ou diâmetros e simultaneidade?",
+          },
+          {
+            id: "rede",
+            q: "Distância até o equipamento/coletor em metros e número de curvas?",
+          },
           {
             id: "temperatura",
             q: "Temperatura aproximada na coifa?",
@@ -3740,19 +3895,34 @@
           },
         ],
         outro: [
-          { id: "processo", q: "Qual máquina/processo gera o pó, fumo ou névoa?" },
+          {
+            id: "processo",
+            q: "Qual máquina/processo gera o pó, fumo ou névoa?",
+          },
           { id: "material", q: "Qual o material do particulado?" },
           {
             id: "atex",
             q: "Existe risco combustível/ATEX?",
             options: ["Sim", "Não", "Não sei"],
           },
-          { id: "bocas", q: "Quantas bocas/pontos, diâmetro de cada um e simultaneidade?" },
-          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "bocas",
+            q: "Quantas bocas/pontos, diâmetro de cada um e simultaneidade?",
+          },
+          {
+            id: "rede",
+            q: "Distância até o coletor em metros e número de curvas?",
+          },
           {
             id: "corrente",
             q: "Temperatura, umidade, óleo ou química agressiva?",
-            options: ["Seco e frio", "Tem umidade", "Tem óleo", "Química agressiva", "Não sei"],
+            options: [
+              "Seco e frio",
+              "Tem umidade",
+              "Tem óleo",
+              "Química agressiva",
+              "Não sei",
+            ],
           },
           {
             id: "eficiencia",
@@ -3764,13 +3934,22 @@
 
       function guidedSegmentKey(value) {
         const text = String(value || "").toLowerCase();
-        if (text.includes("marcenaria") || text.includes("madeira")) return "madeira";
+        if (text.includes("marcenaria") || text.includes("madeira"))
+          return "madeira";
         if (text.includes("solda") || text.includes("corte")) return "solda";
-        if (text.includes("usinagem") || text.includes("metal")) return "usinagem";
-        if (text.includes("alimentos") || text.includes("org")) return "alimentos";
-        if (text.includes("mineração") || text.includes("mineracao") || text.includes("cimento")) return "mineracao";
+        if (text.includes("usinagem") || text.includes("metal"))
+          return "usinagem";
+        if (text.includes("alimentos") || text.includes("org"))
+          return "alimentos";
+        if (
+          text.includes("mineração") ||
+          text.includes("mineracao") ||
+          text.includes("cimento")
+        )
+          return "mineracao";
         if (text.includes("jateamento")) return "jateamento";
-        if (text.includes("cozinha") || text.includes("coifa")) return "cozinha";
+        if (text.includes("cozinha") || text.includes("coifa"))
+          return "cozinha";
         return "outro";
       }
 
@@ -3783,7 +3962,10 @@
             options: GUIDED_SEGMENT_OPTIONS,
           };
           return segment
-            ? [first].concat(GUIDED_SEGMENT_FIELDS[guidedSegmentKey(segment)] || GUIDED_SEGMENT_FIELDS.outro)
+            ? [first].concat(
+                GUIDED_SEGMENT_FIELDS[guidedSegmentKey(segment)] ||
+                  GUIDED_SEGMENT_FIELDS.outro,
+              )
             : [first];
         }
         if (intent === "filter-help") {
@@ -3791,35 +3973,71 @@
             {
               id: "problema",
               q: "O que aconteceu com o filtro?",
-              options: ["Saturou rápido", "Rasgou", "Passa pó", "Troca preventiva", "Não sei"],
+              options: [
+                "Saturou rápido",
+                "Rasgou",
+                "Passa pó",
+                "Troca preventiva",
+                "Não sei",
+              ],
             },
             {
               id: "coletor",
               q: "Qual o tipo de coletor atual?",
               options: ["Mangas", "Cartucho/plissado", "Ciclone", "Não sei"],
             },
-            { id: "processo", q: "Qual processo e material geram o pó/fumo/névoa?" },
+            {
+              id: "processo",
+              q: "Qual processo e material geram o pó/fumo/névoa?",
+            },
             {
               id: "corrente",
               q: "Tem óleo, névoa, umidade ou calor?",
-              options: ["Tem óleo/névoa", "Tem umidade", "Seco", "Quente", "Não sei"],
+              options: [
+                "Tem óleo/névoa",
+                "Tem umidade",
+                "Seco",
+                "Quente",
+                "Não sei",
+              ],
             },
-            { id: "filtro_atual", q: "Sabe o filtro/código atual ou modelo do equipamento?" },
+            {
+              id: "filtro_atual",
+              q: "Sabe o filtro/código atual ou modelo do equipamento?",
+            },
           ];
         }
         return [
           {
             id: "sintoma",
             q: "Qual sintoma principal?",
-            options: ["Perde sucção", "Vaza pó", "Motor fraco", "Filtro satura", "Ruído/vibração"],
+            options: [
+              "Perde sucção",
+              "Vaza pó",
+              "Motor fraco",
+              "Filtro satura",
+              "Ruído/vibração",
+            ],
           },
           { id: "processo", q: "Qual processo/material do cliente?" },
-          { id: "equipamento", q: "Qual equipamento/modelo/motor instalado, se souber?" },
-          { id: "rede", q: "Quantas captações, distâncias e curvas principais?" },
+          {
+            id: "equipamento",
+            q: "Qual equipamento/modelo/motor instalado, se souber?",
+          },
+          {
+            id: "rede",
+            q: "Quantas captações, distâncias e curvas principais?",
+          },
           {
             id: "mudanca",
             q: "Isso começou depois de alguma mudança?",
-            options: ["Novo processo", "Aumentou pontos", "Trocou filtro", "Sempre foi assim", "Não sei"],
+            options: [
+              "Novo processo",
+              "Aumentou pontos",
+              "Trocou filtro",
+              "Sempre foi assim",
+              "Não sei",
+            ],
           },
         ];
       }
@@ -3939,7 +4157,10 @@
           input.addEventListener("input", () => {
             state.answers[field.id] = input.value;
             step.querySelectorAll(".quick-reply-chip").forEach((chip) => {
-              chip.classList.toggle("selected", chip.textContent === input.value);
+              chip.classList.toggle(
+                "selected",
+                chip.textContent === input.value,
+              );
             });
           });
           step.appendChild(input);
@@ -3956,7 +4177,9 @@
               chip.addEventListener("click", () => {
                 state.answers[field.id] = option;
                 input.value = option;
-                chips.querySelectorAll(".quick-reply-chip").forEach((c) => c.classList.remove("selected"));
+                chips
+                  .querySelectorAll(".quick-reply-chip")
+                  .forEach((c) => c.classList.remove("selected"));
                 chip.classList.add("selected");
                 if (field.id === "segmento") {
                   state.index = 1;
@@ -3987,7 +4210,8 @@
           const nextBtn = document.createElement("button");
           nextBtn.type = "button";
           nextBtn.className = "guided-btn primary";
-          nextBtn.textContent = state.index === fields.length - 1 ? "Enviar contexto" : "Próxima";
+          nextBtn.textContent =
+            state.index === fields.length - 1 ? "Enviar contexto" : "Próxima";
           nextBtn.addEventListener("click", () => {
             state.answers[field.id] = input.value.trim() || "Não sei";
             const latestFields = guidedFieldsFor(intent, state.answers);
@@ -3997,10 +4221,15 @@
               return;
             }
             const lines = latestFields
-              .map((f, idx) => `${idx + 1}. ${f.q}\n   -> ${state.answers[f.id] || "Não sei"}`)
+              .map(
+                (f, idx) =>
+                  `${idx + 1}. ${f.q}\n   -> ${state.answers[f.id] || "Não sei"}`,
+              )
               .join("\n\n");
             const compiled = `${guidedIntentPrefix(intent)}\n\n${lines}`;
-            formDiv.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
+            formDiv
+              .querySelectorAll("input, button")
+              .forEach((el) => (el.disabled = true));
             sendQuickReply(compiled);
           });
 
@@ -4015,7 +4244,8 @@
         messageDiv.appendChild(avatarDiv);
         messageDiv.appendChild(content);
         elements.messagesContainer.appendChild(messageDiv);
-        elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
+        elements.messagesContainer.scrollTop =
+          elements.messagesContainer.scrollHeight;
         lucide.createIcons();
       }
       // ============================================
@@ -5039,8 +5269,7 @@
         docsEls.addBtn.disabled = docsBusy;
         docsEls.refreshBtn.disabled = docsBusy;
         const checks = docsEls.list.querySelectorAll(".doc-check");
-        docsEls.selectAll.checked =
-          checks.length > 0 && sel === checks.length;
+        docsEls.selectAll.checked = checks.length > 0 && sel === checks.length;
       }
 
       function renderDocs() {
@@ -5251,9 +5480,7 @@
       docsEls.confirmOk.addEventListener("click", () =>
         doDeleteDocs(docsPendingDeleteIds),
       );
-      docsEls.addBtn.addEventListener("click", () =>
-        docsEls.fileInput.click(),
-      );
+      docsEls.addBtn.addEventListener("click", () => docsEls.fileInput.click());
       docsEls.fileInput.addEventListener("change", async (e) => {
         const files = Array.from(e.target.files || []);
         e.target.value = "";
@@ -5346,15 +5573,24 @@
             const srcLabel =
               c.source === "formulario" ? "Formulário" : "Histórico";
             const metaParts = [];
-            if (c.po) metaParts.push(`<span>Pó: <b>${docsEscHtml(c.po)}</b></span>`);
+            if (c.po)
+              metaParts.push(`<span>Pó: <b>${docsEscHtml(c.po)}</b></span>`);
             if (c.processo)
-              metaParts.push(`<span>Processo: <b>${docsEscHtml(c.processo)}</b></span>`);
+              metaParts.push(
+                `<span>Processo: <b>${docsEscHtml(c.processo)}</b></span>`,
+              );
             if (c.equipamento)
-              metaParts.push(`<span>Equip.: <b>${docsEscHtml(c.equipamento)}</b></span>`);
+              metaParts.push(
+                `<span>Equip.: <b>${docsEscHtml(c.equipamento)}</b></span>`,
+              );
             if (c.motor)
-              metaParts.push(`<span>Motor: <b>${docsEscHtml(c.motor)}</b></span>`);
+              metaParts.push(
+                `<span>Motor: <b>${docsEscHtml(c.motor)}</b></span>`,
+              );
             if (c.filtro)
-              metaParts.push(`<span>Filtro: <b>${docsEscHtml(c.filtro)}</b></span>`);
+              metaParts.push(
+                `<span>Filtro: <b>${docsEscHtml(c.filtro)}</b></span>`,
+              );
             const obs = c.observacoes
               ? `<div class="case-obs">${docsEscHtml(c.observacoes)}</div>`
               : "";
@@ -5396,9 +5632,7 @@
           let data = await res.json();
           if (!Array.isArray(data)) data = data ? [data] : [];
           casesAll = data.map((c, i) => {
-            const extra = c.fields
-              ? Object.values(c.fields).join(" ")
-              : "";
+            const extra = c.fields ? Object.values(c.fields).join(" ") : "";
             const searchBlob = [
               c.cliente,
               c.po,
@@ -5419,7 +5653,9 @@
           casesLoaded = true;
           casesApplyFilters();
           const nHist = casesAll.filter((c) => c.source === "historico").length;
-          const nForm = casesAll.filter((c) => c.source === "formulario").length;
+          const nForm = casesAll.filter(
+            (c) => c.source === "formulario",
+          ).length;
           setCasesStatus(
             `${nForm} formulário(s), ${nHist} histórico(s). Use as abas para alternar.`,
           );
@@ -5437,8 +5673,13 @@
 
       function buildCaseQuestion(c) {
         const origem =
-          c.source === "formulario" ? "formulário de novo cliente" : "histórico real";
-        const lines = [`Quero solucionar este caso vindo da aba de ${origem}:`, ""];
+          c.source === "formulario"
+            ? "formulário de novo cliente"
+            : "histórico real";
+        const lines = [
+          `Quero solucionar este caso vindo da aba de ${origem}:`,
+          "",
+        ];
         if (c.cliente) lines.push(`- Cliente: ${c.cliente}`);
         if (c.po) lines.push(`- Pó/Material: ${c.po}`);
         if (c.processo) lines.push(`- Processo: ${c.processo}`);

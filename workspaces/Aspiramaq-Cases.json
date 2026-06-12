@@ -13,10 +13,7 @@
       "name": "When called - GET cases",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        224,
-        0
-      ],
+      "position": [224, 0],
       "webhookId": "c0a8f1e2-cases-4f10-9abc-aspiramaqcase"
     },
     {
@@ -37,10 +34,7 @@
       "name": "Ler Historico",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        448,
-        -112
-      ],
+      "position": [448, -112],
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "Y2LZELFEeUCjAV5U",
@@ -66,10 +60,7 @@
       "name": "Ler Formulario",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        448,
-        112
-      ],
+      "position": [448, 112],
       "onError": "continueRegularOutput",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -86,10 +77,7 @@
       "name": "Tag Historico",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        672,
-        -112
-      ]
+      "position": [672, -112]
     },
     {
       "parameters": {
@@ -99,10 +87,7 @@
       "name": "Tag Formulario",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        672,
-        112
-      ]
+      "position": [672, 112]
     },
     {
       "parameters": {
@@ -113,10 +98,7 @@
       "name": "Juntar Abas",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        896,
-        0
-      ]
+      "position": [896, 0]
     },
     {
       "parameters": {
@@ -126,10 +108,7 @@
       "name": "Normalizar Casos",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        1120,
-        0
-      ]
+      "position": [1120, 0]
     },
     {
       "parameters": {
@@ -140,10 +119,7 @@
       "name": "Retornar Casos",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        1344,
-        0
-      ]
+      "position": [1344, 0]
     }
   ],
   "pinData": {},

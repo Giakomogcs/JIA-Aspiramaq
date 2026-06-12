@@ -170,12 +170,14 @@ const equipamentosComMotorFixo = [
 ];
 
 const equipamentoModelo = String(
-  input.equipamento_modelo ?? input.modelo_equipamento ?? input.modelo ?? ""
+  input.equipamento_modelo ?? input.modelo_equipamento ?? input.modelo ?? "",
 ).trim();
 
 let coerencia_catalogo = null;
 if (equipamentoModelo) {
-  const regra = equipamentosComMotorFixo.find((r) => r.regex.test(equipamentoModelo));
+  const regra = equipamentosComMotorFixo.find((r) =>
+    r.regex.test(equipamentoModelo),
+  );
   if (regra) {
     const motorCalculado = motor ? motor.cv : "consultar engenharia";
     const motorCalculadoCv = toCvNumber(motorCalculado);
@@ -214,7 +216,8 @@ const rede = input.rede || {};
 const L_m = Number(rede.L_m ?? input.L_m ?? 0);
 const curvas = Number(rede.curvas ?? input.curvas ?? 0);
 if (L_m > 0 || curvas > 0) {
-  const duto = tronco_informado && tronco_informado.ok ? tronco_informado : tronco_rec;
+  const duto =
+    tronco_informado && tronco_informado.ok ? tronco_informado : tronco_rec;
   const v = duto.v_real_m_s;
   const D_m = duto.D_in * 0.0254;
   const Pd = +(0.0612 * v * v).toFixed(1); // pressão dinâmica ≈ ρv²/2 ÷ 9,81 (mm.c.a., ar a 1,2 kg/m³)
