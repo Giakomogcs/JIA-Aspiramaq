@@ -1,5 +1,4 @@
 {
-  "name": "Aspiramaq-RAG",
   "nodes": [
     {
       "parameters": {
@@ -20,30 +19,24 @@
           }
         }
       },
-      "id": "a55c2971-0529-462e-959a-614e038b33dc",
+      "id": "e3c95e76-bae0-49a8-a796-cae0126548ee",
       "name": "Default Data Loader",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
-      "position": [
-        5952,
-        464
-      ]
+      "position": [13328, 2608]
     },
     {
       "parameters": {
         "content": "## Tool to Add a Google Drive File to Vector DB",
         "height": 947,
-        "width": 3809,
+        "width": 4049,
         "color": 5
       },
-      "id": "03778ad7-c7c6-40de-aa7b-227bcaa3f8b6",
+      "id": "f0aa29cd-969a-4e5f-8589-68f84cd6d816",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        2720,
-        -176
-      ]
+      "position": [9872, 1984]
     },
     {
       "parameters": {
@@ -61,14 +54,11 @@
           }
         }
       },
-      "id": "909ba722-f7c4-4af4-85bb-686543435541",
+      "id": "fd542b63-931b-4eaf-bd05-3372db931fe8",
       "name": "Download File",
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
-      "position": [
-        4544,
-        192
-      ],
+      "position": [11920, 2336],
       "executeOnce": true,
       "retryOnFail": true,
       "maxTries": 2,
@@ -84,14 +74,11 @@
         "operation": "text",
         "options": {}
       },
-      "id": "f7dadfad-1f65-47c3-a2d2-45bb6c252b31",
+      "id": "92e59f6b-9422-4460-be36-670a40f9d284",
       "name": "Extract Document Text",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
-      "position": [
-        5216,
-        496
-      ],
+      "position": [12592, 2640],
       "alwaysOutputData": true
     },
     {
@@ -99,39 +86,30 @@
         "operation": "pdf",
         "options": {}
       },
-      "id": "20fbb94a-526e-4441-bf29-67fa95e9eef1",
+      "id": "c7dfb254-dbba-4b2a-b5b2-06754c59fa15",
       "name": "Extract PDF Text",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
-      "position": [
-        5216,
-        -64
-      ]
+      "position": [12592, 2080]
     },
     {
       "parameters": {
         "aggregate": "aggregateAllItemData",
         "options": {}
       },
-      "id": "3bb5e4f2-000f-479f-b53e-86726afc1e43",
+      "id": "c5e22ada-a779-49b9-b52c-19d5cd0979de",
       "name": "Aggregate",
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
-      "position": [
-        5248,
-        112
-      ]
+      "position": [12624, 2256]
     },
     {
       "parameters": {},
-      "id": "61438083-fc02-44a5-8412-5b964e89b461",
+      "id": "b1c581d4-f608-4207-b4f2-65fa8033e6a6",
       "name": "Character Text Splitter",
       "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
       "typeVersion": 1,
-      "position": [
-        5920,
-        608
-      ]
+      "position": [13296, 2752]
     },
     {
       "parameters": {
@@ -145,14 +123,11 @@
         },
         "options": {}
       },
-      "id": "6c0b5137-dcd7-4178-86ea-dae1476b5699",
+      "id": "4934b2de-fb6d-4539-9e5b-9c2d8cbb9f92",
       "name": "Summarize",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
-      "position": [
-        5456,
-        192
-      ]
+      "position": [12832, 2336]
     },
     {
       "parameters": {
@@ -254,14 +229,11 @@
           "fallbackOutput": 3
         }
       },
-      "id": "ea83a355-2c0f-4dcc-a75e-50966253e06d",
+      "id": "8d4b3750-ac03-4da8-96ab-3a7d87a4466e",
       "name": "Switch",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
-      "position": [
-        4720,
-        160
-      ]
+      "position": [12096, 2304]
     },
     {
       "parameters": {
@@ -276,14 +248,11 @@
           "queryName": "aspiramaq_match_documents"
         }
       },
-      "id": "a8b6a47a-854e-4cd1-961e-1008b9855e08",
+      "id": "982379b0-aa89-42a3-8ba7-31cbdb9eef5b",
       "name": "Insert into Supabase Vectorstore",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1,
-      "position": [
-        5936,
-        256
-      ],
+      "position": [13312, 2400],
       "credentials": {
         "supabaseApi": {
           "id": "i5Q8tj8Pyc9XjSGd",
@@ -296,14 +265,11 @@
         "operation": "xlsx",
         "options": {}
       },
-      "id": "672537a2-db23-4e5c-b384-ae3782888d16",
+      "id": "3b61f3b7-9256-486d-b47f-929d9d47938c",
       "name": "Extract from Excel",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
-      "position": [
-        5040,
-        112
-      ]
+      "position": [12416, 2256]
     },
     {
       "parameters": {
@@ -327,11 +293,8 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        5696,
-        -16
-      ],
-      "id": "8297af5b-7164-4732-a08f-cc7d57ef8b10",
+      "position": [13072, 2128],
+      "id": "c53c6db8-bd1f-4905-b906-259721b00426",
       "name": "Set Schema"
     },
     {
@@ -340,11 +303,8 @@
       },
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
-      "position": [
-        5040,
-        288
-      ],
-      "id": "51834a15-fa14-44b2-9f96-18c54882e49c",
+      "position": [12416, 2432],
+      "id": "cdb2eca9-ab36-4faf-9f10-5fa0de9dc89c",
       "name": "Extract from CSV"
     },
     {
@@ -355,11 +315,8 @@
       },
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [
-        3168,
-        144
-      ],
-      "id": "bd4903d3-7762-4fd5-b4e1-d5b72aae4f00",
+      "position": [10544, 2288],
+      "id": "522feb8e-069c-4575-8125-e61de10e7435",
       "name": "Loop Over Items"
     },
     {
@@ -378,11 +335,8 @@
       },
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
-      "position": [
-        4176,
-        288
-      ],
-      "id": "d6291f48-ebaa-43df-a9b2-c86115ed82c3",
+      "position": [11552, 2432],
+      "id": "c2cbcbf8-2e8f-4045-a771-50f17b9581fe",
       "name": "Delete Old Data Rows",
       "alwaysOutputData": true,
       "executeOnce": true,
@@ -412,9 +366,7 @@
             "dataset_id": "={{ $('Set File ID - to Context').item.json.file_id }}",
             "row_data": "={{ $json.toJsonString().replaceAll(/'/g, \"''\") }}"
           },
-          "matchingColumns": [
-            "id"
-          ],
+          "matchingColumns": ["id"],
           "schema": [
             {
               "id": "id",
@@ -452,11 +404,8 @@
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        5248,
-        288
-      ],
-      "id": "81cc4038-215a-420f-9a21-bee634b50f3d",
+      "position": [12624, 2432],
+      "id": "f90c9752-7435-4e31-874e-4cef21c8b181",
       "name": "Insert Table Rows",
       "credentials": {
         "postgres": {
@@ -485,9 +434,7 @@
             "id": "={{ $('Set File ID - to Context').item.json.file_id }}",
             "schema": "={{ $json.schema }}"
           },
-          "matchingColumns": [
-            "id"
-          ],
+          "matchingColumns": ["id"],
           "schema": [
             {
               "id": "id",
@@ -546,11 +493,8 @@
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        5920,
-        -16
-      ],
-      "id": "5bb51d40-c4f1-4e55-86c9-3acaf4b32064",
+      "position": [13296, 2128],
+      "id": "7538833c-0e81-40bf-b511-8a45b88b5281",
       "name": "Update Schema for Document Metadata",
       "credentials": {
         "postgres": {
@@ -567,12 +511,9 @@
         "color": 6
       },
       "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -16,
-        -176
-      ],
+      "position": [7136, 1984],
       "typeVersion": 1,
-      "id": "109b302e-0dc7-495f-9fb0-97bae88d253d",
+      "id": "58073b74-70d8-48a4-9996-ea81a60b324b",
       "name": "Sticky Note9"
     },
     {
@@ -587,18 +528,13 @@
           }
         },
         "options": {
-          "fields": [
-            "*"
-          ]
+          "fields": ["*"]
         }
       },
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
-      "position": [
-        2960,
-        64
-      ],
-      "id": "f89afe75-fa2c-4192-be8d-d37ab47a84c8",
+      "position": [10112, 2224],
+      "id": "8a4351c5-fd92-4084-8a10-2e288dc805bd",
       "name": "Search files and folders",
       "retryOnFail": true,
       "maxTries": 2,
@@ -617,11 +553,8 @@
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
-      "position": [
-        3984,
-        32
-      ],
-      "id": "79cce168-2a91-4aab-84ee-77a1da8b9ca4",
+      "position": [11360, 2176],
+      "id": "fe825ae0-003f-409e-98e3-c1740143e4c9",
       "name": "Delete Old Doc Rows1",
       "credentials": {
         "postgres": {
@@ -648,11 +581,8 @@
       },
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
-      "position": [
-        2944,
-        320
-      ],
-      "id": "3ca2c1fb-2d3e-4dab-b254-395854de702f",
+      "position": [10096, 2480],
+      "id": "585fb523-10ec-43e8-b2a5-873be2e6a141",
       "name": "Upload file",
       "credentials": {
         "googleDriveOAuth2Api": {
@@ -672,11 +602,8 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
-      "position": [
-        2768,
-        320
-      ],
-      "id": "ce2128ba-99ee-4290-8065-a15d051b9449",
+      "position": [9920, 2480],
+      "id": "a072b7f4-caab-4247-8e9e-d1d464e4402e",
       "name": "InsertFile-drive",
       "webhookId": "f9870744-c0e5-422a-9346-036341f2765a"
     },
@@ -687,14 +614,11 @@
         "width": 863,
         "color": 3
       },
-      "id": "fe008c49-2ea6-498e-b6bd-c6abb703f507",
+      "id": "c1a228e4-5592-4b3f-badd-c3b16e3f958d",
       "name": "Sticky Note Setup",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        1840,
-        -160
-      ]
+      "position": [8992, 2000]
     },
     {
       "parameters": {
@@ -702,14 +626,11 @@
         "query": "DROP TABLE IF EXISTS aspiramaq_document_rows CASCADE;\nDROP TABLE IF EXISTS aspiramaq_document_metadata CASCADE;\nDROP TABLE IF EXISTS aspiramaq_chat_message CASCADE;\n\n-- 1. Tabela de Arquivos\nCREATE TABLE aspiramaq_document_metadata (\n    id TEXT PRIMARY KEY,\n    title TEXT,\n    url TEXT,\n    created_at TIMESTAMP DEFAULT NOW(),\n    schema TEXT,\n    session_id TEXT\n);\n\n-- 2. Tabela de Linhas (Excel/CSV)\nCREATE TABLE aspiramaq_document_rows (\n    id SERIAL PRIMARY KEY,\n    dataset_id TEXT REFERENCES aspiramaq_document_metadata(id) ON DELETE CASCADE,\n    row_data JSONB\n);\n\n-- 3. Tabela de Memória do Chat\nCREATE TABLE aspiramaq_chat_message (\n    id SERIAL PRIMARY KEY,\n    session_id TEXT NOT NULL,\n    message JSONB NOT NULL,\n    created_at TIMESTAMP DEFAULT NOW()\n);\nCREATE INDEX aspiramaq_idx_chat_message_session_id ON aspiramaq_chat_message(session_id);",
         "options": {}
       },
-      "id": "cb9418c8-00bc-4739-bfcd-45d2da8564d5",
+      "id": "c7543977-23a2-4976-8d3b-aeeb936569d0",
       "name": "Create Standard Tables",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        2240,
-        64
-      ],
+      "position": [9392, 2224],
       "credentials": {
         "postgres": {
           "id": "jFjeYH6Nt3aRNkoM",
@@ -723,14 +644,11 @@
         "query": "-- Habilita extensão vector\nCREATE EXTENSION IF NOT EXISTS vector;\n\n-- 4. Tabela de Vetores (RAG)\nDROP TABLE IF EXISTS aspiramaq_documents CASCADE;\n\nCREATE TABLE aspiramaq_documents (\n  id bigserial PRIMARY KEY,\n  content text, \n  metadata jsonb, \n  embedding vector(1536) \n);\n\n-- Função de busca (Match)\nDROP FUNCTION IF EXISTS aspiramaq_match_documents;\n\nCREATE FUNCTION aspiramaq_match_documents (\n  query_embedding vector(1536),\n  match_count int DEFAULT NULL,\n  filter jsonb DEFAULT '{}'\n) RETURNS TABLE (\n  id bigint,\n  content text,\n  metadata jsonb,\n  similarity float\n)\nLANGUAGE plpgsql\nAS $$\n#variable_conflict use_column\nBEGIN\n  RETURN QUERY\n  SELECT\n    id,\n    content,\n    metadata,\n    1 - (aspiramaq_documents.embedding <=> query_embedding) AS similarity\n  FROM aspiramaq_documents -- CORREÇÃO: alterado de 'documents' para 'aspiramaq_documents'\n  WHERE metadata @> filter\n  ORDER BY aspiramaq_documents.embedding <=> query_embedding\n  LIMIT match_count;\nEND;\n$$;",
         "options": {}
       },
-      "id": "0e19b77b-0c38-4e14-82d6-c41a7ac8359a",
+      "id": "c6597456-f41a-4add-b97b-42fd77f47209",
       "name": "Create Vector Table & Functions1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        2432,
-        64
-      ],
+      "position": [9584, 2224],
       "credentials": {
         "postgres": {
           "id": "jFjeYH6Nt3aRNkoM",
@@ -744,14 +662,11 @@
         "query": "-- PASSO 1: Criar índices para acelerar a busca (Evita o erro de Timeout)\nCREATE INDEX IF NOT EXISTS aspiramaq_idx_doc_metadata_session \nON aspiramaq_document_metadata(session_id);\n\nCREATE INDEX IF NOT EXISTS aspiramaq_idx_documents_metadata_gin \nON aspiramaq_documents USING GIN (metadata);\n\n-- PASSO 2: Apagar os Vetores (Tabela documents)\n-- Como esta tabela NÃO tem chave estrangeira, precisamos apagar explicitamente\nDELETE FROM aspiramaq_documents \nWHERE metadata->>'session_id' IS NULL;\n\n-- PASSO 3: Apagar os Metadados (Tabela document_metadata)\n-- Isso vai apagar AUTOMATICAMENTE os itens da tabela 'document_rows'\n-- por causa da regra 'ON DELETE CASCADE' que você definiu.\nDELETE FROM aspiramaq_document_metadata \nWHERE session_id IS NULL;",
         "options": {}
       },
-      "id": "11072d84-2867-4757-a50d-298f28999967",
+      "id": "ded4875e-61bb-41b8-a644-9e37dcdb9374",
       "name": "Delete DRIVE Data Only1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        2768,
-        64
-      ],
+      "position": [9920, 2224],
       "credentials": {
         "postgres": {
           "id": "jFjeYH6Nt3aRNkoM",
@@ -763,11 +678,8 @@
       "parameters": {},
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [
-        2016,
-        256
-      ],
-      "id": "a8eb4a28-7611-4b7f-957f-27a156705f1a",
+      "position": [9168, 2416],
+      "id": "e8f4cc4d-98e4-486d-af8b-f8cef0399c56",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -808,14 +720,11 @@
         },
         "options": {}
       },
-      "id": "4df99cbd-72d5-4071-a7c2-9379c0e770ae",
+      "id": "882fdad5-bbe5-42f0-b2f4-4edad3794a2b",
       "name": "Set File ID - to Context",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        3424,
-        160
-      ]
+      "position": [10800, 2304]
     },
     {
       "parameters": {
@@ -824,14 +733,11 @@
         "width": 1276,
         "color": 2
       },
-      "id": "43dca3ea-da64-40b3-b198-72e4d3e5572e",
+      "id": "345fb391-3bf3-4de9-b0e8-82383b93dc15",
       "name": "Sticky Note Session",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        544,
-        -160
-      ]
+      "position": [7696, 2000]
     },
     {
       "parameters": {
@@ -844,14 +750,11 @@
           ]
         }
       },
-      "id": "178a9cab-e58b-4f85-8bbe-091680af242e",
+      "id": "0f903c2a-ae50-4515-b7e6-73dd6adefda8",
       "name": "24h Trigger (Session)1",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
-      "position": [
-        608,
-        352
-      ]
+      "position": [7760, 2512]
     },
     {
       "parameters": {
@@ -859,14 +762,11 @@
         "query": "SELECT id \nFROM aspiramaq_document_metadata \nWHERE session_id IS NOT NULL ",
         "options": {}
       },
-      "id": "be9559cf-c650-46dd-a0ef-531747088c0e",
+      "id": "5c0b5787-75db-482c-af88-2257189f5311",
       "name": "Get Expired File IDs1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        880,
-        224
-      ],
+      "position": [8032, 2384],
       "alwaysOutputData": true,
       "credentials": {
         "postgres": {
@@ -879,14 +779,11 @@
       "parameters": {
         "options": {}
       },
-      "id": "d3e5320c-08bd-41db-9698-fe9757ed482f",
+      "id": "e8a2d7b2-e7d5-4604-a233-613f8907188b",
       "name": "Loop Expired Files1",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [
-        1296,
-        240
-      ]
+      "position": [8448, 2400]
     },
     {
       "parameters": {
@@ -898,14 +795,11 @@
         },
         "options": {}
       },
-      "id": "3fe3cd1d-e7ec-46fb-ab8e-c7e23be64bc6",
+      "id": "5cf20c72-3cff-4f89-8a39-a69900298163",
       "name": "Delete from Google Drive1",
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
-      "position": [
-        1584,
-        352
-      ],
+      "position": [8736, 2512],
       "credentials": {
         "googleDriveOAuth2Api": {
           "id": "1yxLK6IGIPQiU21B",
@@ -920,14 +814,11 @@
         "query": "-- 1. Remove Histórico de Chat Antigo (Removido o '*')\nDELETE FROM aspiramaq_chat_message;\n\n-- 2. Remove Vetores Antigos\nDELETE FROM aspirapaq_documents \nWHERE aspiramaq_metadata->>'session_id' IS NOT NULL;\n\n-- 3. Remove Arquivos/Metadados Antigos\nDELETE FROM aspiramaq_document_metadata \nWHERE session_id IS NOT NULL;",
         "options": {}
       },
-      "id": "cfb5d01a-64e8-46f7-be32-13c4fee1966b",
+      "id": "a4bf1f61-4c1a-42a7-922a-ec52a370af0c",
       "name": "Clean Database Records1",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        1584,
-        144
-      ],
+      "position": [8736, 2304],
       "alwaysOutputData": true,
       "credentials": {
         "postgres": {
@@ -943,14 +834,11 @@
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "b6a8c131-2640-491a-9f9b-2e7d861b6f21",
+      "id": "44a5123f-789a-48bf-9abb-8a2cd18e80d7",
       "name": "Webhook Setup",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        608,
-        80
-      ],
+      "position": [7760, 2240],
       "webhookId": "1c70aff4-7d8b-4d00-abd9-0ecda88405ee"
     },
     {
@@ -959,14 +847,11 @@
         "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Documento processado com sucesso! Memória RAG atualizada.\"\n}",
         "options": {}
       },
-      "id": "28039bca-86c9-423d-9522-3c44688345bc",
+      "id": "1be0b752-4b65-466f-b2eb-f69bdc570469",
       "name": "Confirmar Upload",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        3504,
-        -96
-      ]
+      "position": [10880, 2048]
     },
     {
       "parameters": {
@@ -974,11 +859,8 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        6208,
-        256
-      ],
-      "id": "6b912de7-cef0-408a-9ad4-5c377f202bea",
+      "position": [13584, 2400],
+      "id": "3127e660-1787-4d56-b924-93a4911ae221",
       "name": "Limpar RAM"
     },
     {
@@ -988,12 +870,9 @@
         "width": 304
       },
       "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        2320,
-        832
-      ],
+      "position": [9472, 2992],
       "typeVersion": 1,
-      "id": "4846e47b-5e5c-462b-bf53-c5a3536a4345",
+      "id": "421714a7-ce0c-47dc-9b69-372fdc612667",
       "name": "Sticky Note4"
     },
     {
@@ -1003,12 +882,9 @@
         "width": 320
       },
       "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        2656,
-        848
-      ],
+      "position": [9808, 3008],
       "typeVersion": 1,
-      "id": "4dfb90ea-7740-40e4-88d5-be855ca3dfe8",
+      "id": "4c346348-5886-46b3-a7b6-5b69c1faa327",
       "name": "Sticky Note6"
     },
     {
@@ -1038,11 +914,8 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
-      "position": [
-        3824,
-        256
-      ],
-      "id": "dba3771d-f022-492a-9d8a-9b7ef8ab3af1",
+      "position": [11200, 2400],
+      "id": "8064cb05-f5c8-4747-b745-14ebf3a10c69",
       "name": "If"
     },
     {
@@ -1051,14 +924,11 @@
         "query": "SELECT session_id FROM aspiramaq_document_metadata WHERE id = '{{ $('Set File ID - to Context').item.json.file_id }}'",
         "options": {}
       },
-      "id": "3d651924-8c4c-48c2-833a-8a992fb2e4cf",
+      "id": "735c852f-70ae-4351-9e92-40b777ea1f19",
       "name": "Check Session Integrity",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.4,
-      "position": [
-        3616,
-        160
-      ],
+      "position": [10992, 2304],
       "alwaysOutputData": true,
       "credentials": {
         "postgres": {
@@ -1073,11 +943,8 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        5680,
-        192
-      ],
-      "id": "ca1c4df8-ec10-491b-bdfb-d02b33d61df2",
+      "position": [13056, 2336],
+      "id": "fb498bee-97c0-4da6-97b7-2043770f0371",
       "name": "Limpeza Excel"
     },
     {
@@ -1086,11 +953,8 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        5680,
-        336
-      ],
-      "id": "b2318bf9-e683-43dc-8d66-0952440a4ef3",
+      "position": [13056, 2480],
+      "id": "5fd49682-5c5f-46be-b52b-6b88a6c8b465",
       "name": "Limpeza de Docs"
     },
     {
@@ -1099,11 +963,8 @@
       },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [
-        6352,
-        256
-      ],
-      "id": "ac42d419-8fa2-4fb5-bdf1-bc7083a17393",
+      "position": [13728, 2400],
+      "id": "27bab35e-1382-4324-8a79-ba20b24f4aa1",
       "name": "Wait",
       "webhookId": "79b70584-7a14-4c4d-9ce3-6ff01b47128f"
     },
@@ -1113,11 +974,8 @@
       },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [
-        1936,
-        64
-      ],
-      "id": "68c3120a-4c1c-4f0a-914c-87cf99266f85",
+      "position": [9088, 2224],
+      "id": "43d2e9b4-182a-4608-a84d-0664fcb93920",
       "name": "Wait1",
       "webhookId": "f18070ac-659f-41e0-9fac-920d996cefad"
     },
@@ -1148,50 +1006,9 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
-      "position": [
-        1072,
-        64
-      ],
-      "id": "bd8c82fd-5c82-497b-a122-3d32af693eea",
+      "position": [8224, 2224],
+      "id": "20947daf-e11b-4043-bfc1-c93ac404bd6c",
       "name": "If1"
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-embedding-2-preview"
-      },
-      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        5552,
-        688
-      ],
-      "id": "2ef3b17d-7b92-4bc4-9ff8-46be394590e5",
-      "name": "Embeddings Google Gemini",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "Vx67HOLUDVbPAmHc",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-      "typeVersion": 1,
-      "position": [
-        5696,
-        656
-      ],
-      "id": "bf79c5eb-32c8-451b-bfc6-2d6fea1c6ef1",
-      "name": "OpenRouter Chat Model",
-      "credentials": {
-        "openRouterApi": {
-          "id": "hZRBXrfocBn4jbFB",
-          "name": "openrouter_cloudfy"
-        }
-      }
     },
     {
       "parameters": {
@@ -1215,9 +1032,7 @@
             "url": "={{ $('Set File ID - to Context').item.json.file_url }}",
             "session_id": "={{ $('Set File ID - to Context').item.json.session_id }}"
           },
-          "matchingColumns": [
-            "id"
-          ],
+          "matchingColumns": ["id"],
           "schema": [
             {
               "id": "id",
@@ -1285,11 +1100,8 @@
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [
-        4352,
-        48
-      ],
-      "id": "c86fd38d-46dd-4b87-b1fa-2c23f1ff4c23",
+      "position": [11728, 2192],
+      "id": "79fc5fa5-7664-44f3-ab7d-ea71ef304b66",
       "name": "Insert Document Metadata1",
       "executeOnce": true,
       "credentials": {
@@ -1306,11 +1118,8 @@
       },
       "type": "@n8n/n8n-nodes-langchain.embeddingsAzureOpenAi",
       "typeVersion": 1,
-      "position": [
-        5792,
-        496
-      ],
-      "id": "b7a95e7c-e3bf-458e-aa61-60693bbc6a38",
+      "position": [13168, 2640],
+      "id": "c0dd115b-f32e-4e4a-b3c3-b2bbd92e68e1",
       "name": "Embeddings Azure OpenAI",
       "credentials": {
         "azureOpenAiApi": {
@@ -1318,9 +1127,64 @@
           "name": "Azure Open AI account 3"
         }
       }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aspiramaq-docs-reprocess",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "063eae2d-c574-4e1e-ac1b-8decb62ea309",
+      "name": "Reprocessar Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [9920, 2720],
+      "webhookId": "8e4daa20-cccc-4ddd-8eee-ae9c0ce55001"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids = ($json.body && Array.isArray($json.body.ids)) ? $json.body.ids.filter(Boolean) : [];\nif (!ids.length) {\n  throw new Error('Nenhum id informado no corpo da requisicao ({ ids: [...] }).');\n}\nreturn ids.map(id => ({ json: { id } }));"
+      },
+      "id": "5e96ce3b-b6f8-4eb1-95f6-f0213f5b82b6",
+      "name": "Separar IDs Reprocesso",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [10096, 2720]
+    },
+    {
+      "parameters": {
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "id,name,mimeType,webViewLink"
+            },
+            {
+              "name": "supportsAllDrives",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6b2f59e2-549c-4b67-9bda-fbe593b44b06",
+      "name": "Buscar Info no Drive",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [10304, 2720],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "1yxLK6IGIPQiU21B",
+          "name": "Google Drive account"
+        }
+      }
     }
   ],
-  "pinData": {},
   "connections": {
     "Default Data Loader": {
       "ai_document": [
@@ -1793,11 +1657,6 @@
         ]
       ]
     },
-    "Embeddings Google Gemini": {
-      "ai_embedding": [
-        []
-      ]
-    },
     "Insert Document Metadata1": {
       "main": [
         [
@@ -1819,19 +1678,44 @@
           }
         ]
       ]
+    },
+    "Reprocessar Webhook": {
+      "main": [
+        [
+          {
+            "node": "Separar IDs Reprocesso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar IDs Reprocesso": {
+      "main": [
+        [
+          {
+            "node": "Buscar Info no Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Info no Drive": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": true,
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "availableInMCP": false
-  },
-  "versionId": "ba31ce40-7e89-408e-90bc-b607d3489fdd",
+  "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "03d32a206f2d8840fce482e6c587726f18775bd9177e9401c00ca76d3086ad41"
-  },
-  "id": "iAm0bWm1UitdEFNv",
-  "tags": []
+  }
 }

@@ -1,0 +1,271 @@
+{
+  "name": "Aspiramaq-Docs-Manager",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## 📂 GESTÃO DE DOCUMENTOS DO RAG\n\n**GET /aspiramaq-docs-list** → lista todos os documentos (metadados + nº de chunks).\n\n**POST /aspiramaq-docs-delete** `{ \"ids\": [\"...\"] }` → remove do banco (vetores, rows, metadados) e do Google Drive.\n\nO reprocesso fica no workflow **Aspiramaq-RAG** (webhook `aspiramaq-docs-reprocess`), pois reutiliza o pipeline de extração/embedding.",
+        "height": 280,
+        "width": 420,
+        "color": 4
+      },
+      "id": "a1b2c3d4-0001-4000-8000-d0c500000d01",
+      "name": "Sticky Note Docs",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-208, -160]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "aspiramaq-docs-list",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0002-4000-8000-d0c500000d02",
+      "name": "Listar Docs Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [272, -64],
+      "webhookId": "7f3d9a10-aaaa-4bbb-8ccc-d0c511570001"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "aspiramaq_health",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0011-4000-8000-d0c500000d11",
+      "name": "Health Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [272, 416],
+      "webhookId": "7f3d9a10-dddd-4eee-8fff-d0c5aea17001"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"ok\"\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0012-4000-8000-d0c500000d12",
+      "name": "Responder Health",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [480, 416]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n  m.id,\n  m.title,\n  m.url,\n  m.created_at,\n  m.session_id,\n  (m.schema IS NOT NULL) AS has_schema,\n  (SELECT COUNT(*)::int FROM aspiramaq_documents d WHERE d.metadata->>'file_id' = m.id) AS chunks\nFROM aspiramaq_document_metadata m\nORDER BY m.created_at DESC NULLS LAST;",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0003-4000-8000-d0c500000d03",
+      "name": "Buscar Documentos",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [480, -64],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "jFjeYH6Nt3aRNkoM",
+          "name": "Supabase_database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0004-4000-8000-d0c500000d04",
+      "name": "Responder Lista",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [688, -64]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aspiramaq-docs-delete",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0005-4000-8000-d0c500000d05",
+      "name": "Excluir Docs Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [272, 192],
+      "webhookId": "7f3d9a10-bbbb-4ccc-8ddd-d0c5de100001"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids = ($json.body && Array.isArray($json.body.ids)) ? $json.body.ids.filter(Boolean) : [];\nif (!ids.length) {\n  throw new Error('Nenhum id informado no corpo da requisição ({ ids: [...] }).');\n}\n// Monta lista segura para SQL (escapa aspas simples)\nconst idList = ids.map(id => `'${String(id).replace(/'/g, \"''\")}'`).join(', ');\nreturn [{ json: { ids, idList } }];"
+      },
+      "id": "a1b2c3d4-0006-4000-8000-d0c500000d06",
+      "name": "Preparar IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 192]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- 1. Remove vetores (chunks)\nDELETE FROM aspiramaq_documents\nWHERE metadata->>'file_id' IN ({{ $json.idList }});\n\n-- 2. Remove linhas tabulares (Excel/CSV)\nDELETE FROM aspiramaq_document_rows\nWHERE dataset_id IN ({{ $json.idList }});\n\n-- 3. Remove metadados\nDELETE FROM aspiramaq_document_metadata\nWHERE id IN ({{ $json.idList }});",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0007-4000-8000-d0c500000d07",
+      "name": "Limpar Banco",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [688, 192],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "jFjeYH6Nt3aRNkoM",
+          "name": "Supabase_database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids = $('Preparar IDs').first().json.ids;\nreturn ids.map(id => ({ json: { id } }));"
+      },
+      "id": "a1b2c3d4-0008-4000-8000-d0c500000d08",
+      "name": "Separar IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [896, 192]
+    },
+    {
+      "parameters": {
+        "operation": "deleteFile",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0009-4000-8000-d0c500000d09",
+      "name": "Excluir do Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [1104, 192],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "1yxLK6IGIPQiU21B",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Documentos removidos com sucesso.\"\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0010-4000-8000-d0c500000d10",
+      "name": "Responder Exclusão",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1312, 192]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Health Webhook": {
+      "main": [
+        [
+          {
+            "node": "Responder Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listar Docs Webhook": {
+      "main": [
+        [
+          {
+            "node": "Buscar Documentos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Documentos": {
+      "main": [
+        [
+          {
+            "node": "Responder Lista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Excluir Docs Webhook": {
+      "main": [
+        [
+          {
+            "node": "Preparar IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar IDs": {
+      "main": [
+        [
+          {
+            "node": "Limpar Banco",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limpar Banco": {
+      "main": [
+        [
+          {
+            "node": "Separar IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar IDs": {
+      "main": [
+        [
+          {
+            "node": "Excluir do Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Excluir do Drive": {
+      "main": [
+        [
+          {
+            "node": "Responder Exclusão",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

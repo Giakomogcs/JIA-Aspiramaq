@@ -1,12 +1,15 @@
 // Calculadora determinística de dimensionamento aeráulico para coletores de pó.
 // Entrada (string JSON via "query"):
 //   {
-//     "processo": "madeira" | "mdf" | "po_madeira" | "metal" | "farinha" | "plastico" | "organico",
+//     "processo": "madeira" | "mdf" | "po_madeira" | "metal" | "farinha" | "plastico" | "organico" | "fumo" | "solda" | "poeira_leve",
 //     "bocas": [ { "D_in": 5, "count": 3, "v_alvo": 22 }, ... ],
-//     "tronco_D_in": 12         // opcional — se quiser validar um Ø proposto
+//     "tronco_D_in": 12,        // opcional — se quiser validar um Ø proposto
+//     "rede": { "L_m": 8, "curvas": 3 }, // opcional — estima perda de carga da rede
+//     "equipamento_modelo": "CICLONE 50 CARTUCHO" // opcional — valida coerencia modelo x motor
 //   }
 // Saída: JSON com vazões, faixa de velocidade do processo, Ø de tronco recomendado,
-// validação do Ø informado e motor sugerido por faixa de vazão.
+// validação do Ø informado, perda de carga estimada, motor sugerido por faixa de vazão
+// e (quando informado) checagem de coerencia de catalogo modelo x motor.
 
 let input;
 try {
@@ -27,6 +30,11 @@ const v_min_map = {
   farinha: 18,
   plastico: 18,
   organico: 18,
+  fumo: 10,
+  solda: 10,
+  fumo_metalico: 10,
+  fumaca: 10,
+  poeira_leve: 12,
 };
 const v_max_map = {
   madeira: 25,
@@ -36,6 +44,11 @@ const v_max_map = {
   farinha: 22,
   plastico: 22,
   organico: 24,
+  fumo: 13,
+  solda: 13,
+  fumo_metalico: 13,
+  fumaca: 13,
+  poeira_leve: 15,
 };
 
 const proc = String(input.processo || "")
@@ -136,14 +149,100 @@ const motor_faixas = [
 ];
 const motor = motor_faixas.find((f) => Q_rede >= f.min && Q_rede < f.max);
 
+const toCvNumber = (value) => {
+  const m = String(value || "").match(/(\d+(?:[\.,]\d+)?)/);
+  return m ? Number(m[1].replace(",", ".")) : null;
+};
+
+const equipamentosComMotorFixo = [
+  {
+    nome_modelo: "CICLONE 50 CARTUCHO",
+    regex: /ciclone\s*50.*cartucho|cartucho.*ciclone\s*50/i,
+    motor_catalogo_cv: "5 cv",
+    proximo_modelo: "CICLONE 75",
+  },
+  {
+    nome_modelo: "CICLONE 75",
+    regex: /ciclone\s*75/i,
+    motor_catalogo_cv: "7,5 cv",
+    proximo_modelo: null,
+  },
+];
+
+const equipamentoModelo = String(
+  input.equipamento_modelo ?? input.modelo_equipamento ?? input.modelo ?? ""
+).trim();
+
+let coerencia_catalogo = null;
+if (equipamentoModelo) {
+  const regra = equipamentosComMotorFixo.find((r) => r.regex.test(equipamentoModelo));
+  if (regra) {
+    const motorCalculado = motor ? motor.cv : "consultar engenharia";
+    const motorCalculadoCv = toCvNumber(motorCalculado);
+    const motorCatalogoCv = toCvNumber(regra.motor_catalogo_cv);
+    const coerente =
+      motorCalculadoCv !== null && motorCatalogoCv !== null
+        ? Math.abs(motorCalculadoCv - motorCatalogoCv) <= 0.3
+        : false;
+
+    let acao = "OK";
+    if (!coerente) {
+      if (regra.nome_modelo === "CICLONE 50 CARTUCHO") {
+        acao =
+          "Incoerencia catalogo: CICLONE 50 CARTUCHO deve fechar em 5 cv; se a necessidade real for 7,5 cv, migrar para CICLONE 75.";
+      } else {
+        acao =
+          "Incoerencia catalogo: ajuste modelo ou valide o ponto com engenharia antes de fechar proposta.";
+      }
+    }
+
+    coerencia_catalogo = {
+      modelo_informado: equipamentoModelo,
+      regra_aplicada: regra.nome_modelo,
+      motor_catalogo_cv: regra.motor_catalogo_cv,
+      motor_calculado_cv: motorCalculado,
+      coerente,
+      acao_recomendada: acao,
+      proximo_modelo_sugerido: !coerente ? regra.proximo_modelo : null,
+    };
+  }
+}
+
+// Perda de carga estimada da rede (se L_m/curvas informados)
+let perda_carga = null;
+const rede = input.rede || {};
+const L_m = Number(rede.L_m ?? input.L_m ?? 0);
+const curvas = Number(rede.curvas ?? input.curvas ?? 0);
+if (L_m > 0 || curvas > 0) {
+  const duto = tronco_informado && tronco_informado.ok ? tronco_informado : tronco_rec;
+  const v = duto.v_real_m_s;
+  const D_m = duto.D_in * 0.0254;
+  const Pd = +(0.0612 * v * v).toFixed(1); // pressão dinâmica ≈ ρv²/2 ÷ 9,81 (mm.c.a., ar a 1,2 kg/m³)
+  const dP_atrito = +((0.02 / D_m) * Pd * L_m).toFixed(1); // λ=0,02 (duto metálico liso)
+  const dP_curvas = +(curvas * 0.3 * Pd).toFixed(1); // K≈0,3 por curva 90° R/D≥1,5
+  const dP_total = +(dP_atrito + dP_curvas).toFixed(1);
+  perda_carga = {
+    base: { duto_D_in: duto.D_in, v_m_s: v, L_m, curvas },
+    pressao_dinamica_mmca: Pd,
+    dP_atrito_mmca: dP_atrito,
+    dP_curvas_mmca: dP_curvas,
+    dP_rede_total_mmca: dP_total,
+    aviso:
+      "Estimativa da REDE apenas (atrito + curvas 90°). NÃO inclui perda do coletor/mídia (~80–120 mm.c.a. limpa) nem captão/coifa. Some-as ao selecionar o exaustor.",
+  };
+}
+
 return JSON.stringify({
   processo: input.processo || "(não informado)",
+  equipamento_modelo_informado: equipamentoModelo || null,
   faixa_velocidade_m_s: { v_min, v_max, v_target },
   bocas: bocas_out,
   Q_total_rede_m3h: Q_rede,
   tronco_recomendado: tronco_rec,
   tronco_informado,
+  perda_carga_estimada: perda_carga,
   motor_sugerido_cv: motor ? motor.cv : "consultar engenharia",
+  coerencia_catalogo,
   observacao:
     "Velocidade no tronco precisa ficar entre v_min e v_max do processo. Some +10–15% à vazão por curvas/perdas em redes longas (>10 m ou >4 curvas).",
 });

@@ -926,9 +926,6 @@
         border-bottom: none;
       }
       /* Variantes de cor por emoji de seção */
-      .message.assistant .message-content h2:has(> :first-child) {
-        /* fallback */
-      }
       .message.assistant .message-content h2.sec-spec,
       .message.assistant .message-content h2:where(:is(*))[data-sec="spec"] {
         color: var(--asst-success);
@@ -1419,6 +1416,44 @@
           font-size: 14px;
           padding: 12px 16px;
         }
+
+        .empty-state {
+          justify-content: flex-start;
+          padding: 28px 16px 18px;
+          overflow-y: auto;
+        }
+
+        .empty-icon {
+          width: 62px;
+          height: 62px;
+          margin-bottom: 14px;
+        }
+
+        .empty-title {
+          font-size: 22px;
+        }
+
+        .empty-subtitle {
+          font-size: 14px;
+        }
+
+        .starter-actions {
+          grid-template-columns: 1fr;
+          width: 100%;
+          margin-top: 18px;
+          gap: 9px;
+        }
+
+        .starter-card {
+          grid-template-columns: 38px 1fr;
+          min-height: 88px;
+          padding: 13px;
+        }
+
+        .starter-icon {
+          width: 38px;
+          height: 38px;
+        }
       }
 
       /* ============================================
@@ -1556,6 +1591,444 @@
         color: white;
       }
 
+      /* DOCS MANAGER MODAL */
+      .docs-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+      }
+
+      .docs-modal-backdrop.show {
+        display: flex;
+      }
+
+      .docs-modal {
+        background: var(--bg-chat);
+        border-radius: 12px;
+        width: 92%;
+        max-width: 720px;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .docs-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .docs-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .docs-toolbar {
+        display: flex;
+        gap: 8px;
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--border-color);
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .docs-btn {
+        padding: 7px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+
+      .docs-btn:hover:not(:disabled) {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+      }
+
+      .docs-btn.primary {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+      }
+
+      .docs-btn.primary:hover:not(:disabled) {
+        background: var(--color-primary-hover);
+        color: white;
+      }
+
+      .docs-btn.danger:hover:not(:disabled) {
+        border-color: #e54848;
+        color: #e54848;
+      }
+
+      .docs-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .docs-list {
+        overflow-y: auto;
+        padding: 8px 12px;
+        flex: 1;
+        min-height: 140px;
+      }
+
+      .doc-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 13px;
+      }
+
+      .doc-row:last-child {
+        border-bottom: none;
+      }
+
+      .doc-info {
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .doc-name {
+        font-weight: 600;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .doc-name a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .doc-name a:hover {
+        text-decoration: underline;
+        color: var(--color-primary);
+      }
+
+      .doc-meta {
+        font-size: 11px;
+        color: var(--text-secondary);
+        display: flex;
+        gap: 10px;
+        margin-top: 2px;
+        align-items: center;
+      }
+
+      .doc-badge {
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 10px;
+        background: rgba(46, 158, 91, 0.14);
+        color: #2e9e5b;
+        font-weight: 700;
+      }
+
+      .doc-badge.temp {
+        background: rgba(230, 160, 0, 0.15);
+        color: #c98a00;
+      }
+
+      .doc-actions {
+        display: flex;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .doc-icon-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--text-secondary);
+        padding: 6px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+      }
+
+      .doc-icon-btn:hover {
+        background: rgba(127, 127, 127, 0.15);
+        color: var(--color-primary);
+      }
+
+      .doc-icon-btn.del:hover {
+        color: #e54848;
+      }
+
+      .docs-status {
+        padding: 10px 20px;
+        font-size: 12.5px;
+        color: var(--text-secondary);
+        border-top: 1px solid var(--border-color);
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+      }
+
+      .docs-status.success {
+        color: #2e9e5b;
+      }
+
+      .docs-status.warning {
+        color: #c98a00;
+      }
+
+      .docs-status.error {
+        color: #e54848;
+      }
+
+      .docs-empty {
+        text-align: center;
+        color: var(--text-secondary);
+        padding: 30px 10px;
+        font-size: 13px;
+      }
+
+      .docs-confirm-bar {
+        display: none;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(229, 72, 72, 0.1);
+        border-top: 1px solid rgba(229, 72, 72, 0.35);
+        color: #e54848;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .docs-confirm-bar.show {
+        display: flex;
+      }
+
+      /* CASOS / HISTÓRICO MODAL */
+      .cases-modal {
+        max-width: 860px;
+      }
+
+      .cases-toolbar {
+        gap: 10px;
+      }
+
+      .cases-search {
+        flex: 1;
+        min-width: 180px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--bg-chat);
+        color: var(--text-secondary);
+      }
+
+      .cases-search input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 13px;
+        color: var(--text-primary);
+        font-family: inherit;
+      }
+
+      .cases-tabs {
+        display: inline-flex;
+        gap: 4px;
+        padding: 3px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--bg-chat);
+      }
+
+      .cases-tab {
+        border: none;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 7px 12px;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .cases-tab.active {
+        background: var(--color-primary);
+        color: #fff;
+      }
+
+      .cases-select {
+        padding: 7px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-chat);
+        color: var(--text-primary);
+        font-size: 13px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      .case-card {
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      .case-card:hover {
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .case-card-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .case-client {
+        font-weight: 700;
+        color: var(--text-primary);
+        font-size: 14px;
+        flex: 1;
+        min-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .case-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .case-badge.src-historico {
+        background: rgba(91, 155, 213, 0.16);
+        color: #3f7cb5;
+      }
+
+      .case-badge.src-formulario {
+        background: rgba(196, 30, 58, 0.14);
+        color: #c41e3a;
+      }
+
+      .case-badge.st-aprovado {
+        background: rgba(46, 158, 91, 0.16);
+        color: #2e9e5b;
+      }
+
+      .case-badge.st-pendente {
+        background: rgba(230, 160, 0, 0.16);
+        color: #c98a00;
+      }
+
+      .case-badge.st-reprovado {
+        background: rgba(229, 72, 72, 0.16);
+        color: #e54848;
+      }
+
+      .case-badge.st-desconhecido {
+        background: rgba(127, 127, 127, 0.16);
+        color: var(--text-secondary);
+      }
+
+      .case-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .case-meta b {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .case-obs {
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        max-height: 3.6em;
+        overflow: hidden;
+      }
+
+      .case-actions {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .case-ask-btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--color-primary);
+        background: var(--color-primary);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.2s;
+      }
+
+      .case-ask-btn:hover {
+        background: var(--color-primary-hover);
+      }
+
+      .cases-pager {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 10px 20px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .cases-page-info {
+        font-size: 12.5px;
+        color: var(--text-secondary);
+        min-width: 130px;
+        text-align: center;
+      }
+
       /* SIDEBAR FOOTER & USER PROFILE */
       .sidebar-footer {
         padding: 16px;
@@ -1607,12 +2080,13 @@
 
       .footer-actions {
         display: flex;
+        flex-direction: column;
         gap: 8px;
-        margin-top: 12px;
+        margin-top: 0;
       }
 
       .footer-btn {
-        flex: 1;
+        width: 100%;
         padding: 8px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background: transparent;
@@ -1649,9 +2123,186 @@
         justify-content: center;
         height: 100%;
         text-align: center;
-        padding: 20px;
+        padding: 32px 24px;
         color: var(--text-secondary);
         animation: fadeIn 0.3s ease-out;
+      }
+
+      .starter-actions {
+        width: min(820px, 100%);
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+        gap: 12px;
+      }
+
+      .starter-card {
+        border: 1px solid var(--border-color);
+        background: linear-gradient(180deg, var(--bg-message-assistant), rgba(255, 255, 255, 0.72));
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 16px;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        gap: 13px;
+        align-items: start;
+        text-align: left;
+        font-family: inherit;
+        box-shadow: var(--shadow-sm);
+        min-height: 96px;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
+      }
+
+      [data-theme="dark"] .starter-card {
+        background: linear-gradient(180deg, var(--bg-message-assistant), rgba(26, 35, 50, 0.82));
+      }
+
+      .starter-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-top: 3px solid transparent;
+        pointer-events: none;
+        transition: border-color 0.2s;
+      }
+
+      .starter-card:hover:not(:disabled) {
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .starter-card:hover:not(:disabled)::after {
+        border-top-color: var(--color-accent);
+      }
+
+      .starter-card:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .starter-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        background: rgba(196, 30, 58, 0.1);
+        color: var(--color-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .starter-icon svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .starter-body {
+        min-width: 0;
+      }
+
+      .starter-title {
+        display: block;
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 1.2;
+        color: var(--text-primary);
+      }
+
+      .starter-copy {
+        display: block;
+        margin-top: 7px;
+        color: var(--text-secondary);
+        font-size: 12.5px;
+        line-height: 1.45;
+      }
+
+      .guided-form {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px dashed var(--border-color);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .guided-form-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .guided-kicker {
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .guided-title {
+        margin-top: 2px;
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--text-primary);
+      }
+
+      .guided-progress {
+        min-width: 68px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 700;
+        text-align: right;
+      }
+
+      .guided-step {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .guided-step[hidden] {
+        display: none;
+      }
+
+      .guided-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .guided-btn {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-secondary);
+        border-radius: 20px;
+        padding: 8px 14px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .guided-btn:hover:not(:disabled) {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+      }
+
+      .guided-btn.primary {
+        border-color: var(--color-primary);
+        background: var(--color-primary);
+        color: #fff;
+      }
+
+      .guided-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
       }
 
       .empty-state.show {
@@ -1659,28 +2310,70 @@
       }
 
       .empty-icon {
-        width: 80px;
-        height: 80px;
+        width: 74px;
+        height: 74px;
         color: var(--color-primary);
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         opacity: 0.9;
-        background: rgba(27, 58, 92, 0.08);
+        background: var(--bg-message-assistant);
         padding: 12px;
         border-radius: 50%;
-        border: 2px solid rgba(27, 58, 92, 0.1);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-md);
       }
 
       .empty-title {
-        font-size: 24px;
-        font-weight: 700;
+        font-size: 26px;
+        font-weight: 800;
         color: var(--text-primary);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        line-height: 1.2;
       }
 
       .empty-subtitle {
-        font-size: 16px;
-        max-width: 400px;
+        font-size: 15px;
+        max-width: 520px;
         line-height: 1.5;
+      }
+
+      @media (max-width: 620px) {
+        .empty-state {
+          justify-content: flex-start;
+          padding: 28px 16px 18px;
+          overflow-y: auto;
+        }
+
+        .empty-icon {
+          width: 62px;
+          height: 62px;
+          margin-bottom: 14px;
+        }
+
+        .empty-title {
+          font-size: 22px;
+        }
+
+        .empty-subtitle {
+          font-size: 14px;
+        }
+
+        .starter-actions {
+          grid-template-columns: 1fr;
+          width: 100%;
+          margin-top: 18px;
+          gap: 9px;
+        }
+
+        .starter-card {
+          grid-template-columns: 38px 1fr;
+          min-height: 88px;
+          padding: 13px;
+        }
+
+        .starter-icon {
+          width: 38px;
+          height: 38px;
+        }
       }
 
       @keyframes fadeIn {
@@ -1749,13 +2442,6 @@
           </div>
           <!-- SIDEBAR FOOTER -->
           <div class="sidebar-footer">
-            <div class="user-profile">
-              <div class="user-avatar">AD</div>
-              <div class="user-info">
-                <div class="user-name">Administrador</div>
-                <div class="user-role">Sistema</div>
-              </div>
-            </div>
             <div class="footer-actions">
               <button
                 class="footer-btn"
@@ -1765,6 +2451,35 @@
                 <i data-lucide="moon" style="width: 14px; height: 14px"></i>
                 <span>Tema</span>
               </button>
+              <button
+                class="footer-btn"
+                id="docsBtn"
+                title="Documentos do RAG"
+              >
+                <i
+                  data-lucide="folder-open"
+                  style="width: 14px; height: 14px"
+                ></i>
+                <span>Docs</span>
+              </button>
+              <button
+                class="footer-btn"
+                id="casesBtn"
+                title="Casos e histórico de clientes"
+              >
+                <i
+                  data-lucide="briefcase"
+                  style="width: 14px; height: 14px"
+                ></i>
+                <span>Casos</span>
+              </button>
+              <div class="user-profile">
+                <div class="user-avatar">AD</div>
+                <div class="user-info">
+                  <div class="user-name">Administrador</div>
+                  <div class="user-role">Sistema</div>
+                </div>
+              </div>
               <button class="footer-btn" id="logoutBtn" title="Sair do sistema">
                 <i data-lucide="log-out" style="width: 14px; height: 14px"></i>
                 <span>Sair</span>
@@ -1848,6 +2563,36 @@
             <div class="empty-subtitle">
               Estou pronto para responder dúvidas sobre a Aspiramaq, nossos
               produtos e serviços industriais.
+            </div>
+            <div class="starter-actions" aria-label="Atalhos para iniciar conversa">
+              <button class="starter-card" type="button" data-starter="new-case">
+                <span class="starter-icon"><i data-lucide="clipboard-list"></i></span>
+                <span class="starter-body">
+                  <span class="starter-title">Ajuda com caso novo</span>
+                  <span class="starter-copy">Abre um formulário por segmento para filtrar histórico e fechar contexto.</span>
+                </span>
+              </button>
+              <button class="starter-card" type="button" data-starter="filter-help">
+                <span class="starter-icon"><i data-lucide="filter"></i></span>
+                <span class="starter-body">
+                  <span class="starter-title">Filtro saturando ou troca</span>
+                  <span class="starter-copy">Coleta os poucos dados que definem filtro, óleo, umidade e temperatura.</span>
+                </span>
+              </button>
+              <button class="starter-card" type="button" data-starter="problem-help">
+                <span class="starter-icon"><i data-lucide="wrench"></i></span>
+                <span class="starter-body">
+                  <span class="starter-title">Equipamento com problema</span>
+                  <span class="starter-copy">Organiza sintomas, processo e condição para diagnosticar sem chute.</span>
+                </span>
+              </button>
+              <button class="starter-card" type="button" data-starter="cases-modal">
+                <span class="starter-icon"><i data-lucide="briefcase"></i></span>
+                <span class="starter-body">
+                  <span class="starter-title">Consultar históricos</span>
+                  <span class="starter-copy">Abre casos reais e formulários para usar como contexto do atendimento.</span>
+                </span>
+              </button>
             </div>
           </div>
 
@@ -1952,6 +2697,162 @@
         </div>
       </div>
     </div>
+
+    <!-- Docs Manager Modal -->
+    <div class="docs-modal-backdrop" id="docsModal">
+      <div class="docs-modal">
+        <div class="docs-header">
+          <div class="docs-title">
+            <i data-lucide="folder-open" style="width: 18px; height: 18px"></i>
+            Documentos do RAG
+          </div>
+          <div style="display: flex; gap: 6px">
+            <button
+              class="doc-icon-btn"
+              id="docsRefreshBtn"
+              title="Atualizar lista"
+            >
+              <i data-lucide="refresh-cw" style="width: 16px; height: 16px"></i>
+            </button>
+            <button class="doc-icon-btn" id="docsCloseBtn" title="Fechar">
+              <i data-lucide="x" style="width: 16px; height: 16px"></i>
+            </button>
+          </div>
+        </div>
+        <div class="docs-toolbar">
+          <label
+            style="
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              font-size: 13px;
+              color: var(--text-secondary);
+              cursor: pointer;
+            "
+          >
+            <input type="checkbox" id="docsSelectAll" />
+            Todos
+          </label>
+          <span style="flex: 1"></span>
+          <button class="docs-btn primary" id="docsAddBtn">
+            <i data-lucide="upload" style="width: 14px; height: 14px"></i>
+            Adicionar arquivos
+          </button>
+          <button class="docs-btn" id="docsReprocessBtn" disabled>
+            <i data-lucide="refresh-ccw" style="width: 14px; height: 14px"></i>
+            Reprocessar
+          </button>
+          <button class="docs-btn danger" id="docsDeleteBtn" disabled>
+            <i data-lucide="trash-2" style="width: 14px; height: 14px"></i>
+            Excluir
+          </button>
+          <input
+            type="file"
+            id="docsFileInput"
+            multiple
+            style="display: none"
+          />
+        </div>
+        <div class="docs-list" id="docsList">
+          <div class="docs-empty">Carregando documentos...</div>
+        </div>
+        <div class="docs-confirm-bar" id="docsConfirmBar">
+          <span id="docsConfirmText">Excluir documentos?</span>
+          <span style="flex: 1"></span>
+          <button class="btn-modal btn-cancel" id="docsConfirmCancel">
+            Cancelar
+          </button>
+          <button
+            class="btn-modal btn-confirm"
+            id="docsConfirmOk"
+            style="background: #e54848"
+          >
+            Excluir
+          </button>
+        </div>
+        <div class="docs-status" id="docsStatusWrap">
+          <span id="docsStatus"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Casos / Histórico Modal -->
+    <div class="docs-modal-backdrop" id="casesModal">
+      <div class="docs-modal cases-modal">
+        <div class="docs-header">
+          <div class="docs-title">
+            <i data-lucide="briefcase" style="width: 18px; height: 18px"></i>
+            Formulários e histórico de clientes
+          </div>
+          <div style="display: flex; gap: 6px">
+            <button
+              class="doc-icon-btn"
+              id="casesRefreshBtn"
+              title="Atualizar lista"
+            >
+              <i data-lucide="refresh-cw" style="width: 16px; height: 16px"></i>
+            </button>
+            <button class="doc-icon-btn" id="casesCloseBtn" title="Fechar">
+              <i data-lucide="x" style="width: 16px; height: 16px"></i>
+            </button>
+          </div>
+        </div>
+        <div class="docs-toolbar cases-toolbar">
+          <div class="cases-tabs" role="tablist" aria-label="Origem dos casos">
+            <button
+              type="button"
+              class="cases-tab active"
+              data-source="formulario"
+              role="tab"
+              aria-selected="true"
+            >
+              Formulários
+            </button>
+            <button
+              type="button"
+              class="cases-tab"
+              data-source="historico"
+              role="tab"
+              aria-selected="false"
+            >
+              Histórico
+            </button>
+          </div>
+          <div class="cases-search">
+            <i data-lucide="search" style="width: 14px; height: 14px"></i>
+            <input
+              type="text"
+              id="casesSearch"
+              placeholder="Buscar cliente, pó, equipamento, motor..."
+              autocomplete="off"
+            />
+          </div>
+          <select id="casesStatusFilter" class="cases-select">
+            <option value="">Todos os status</option>
+            <option value="aprovado">✅ Aprovado</option>
+            <option value="pendente">⚠️ Pendente</option>
+            <option value="reprovado">❌ Reprovado</option>
+          </select>
+        </div>
+        <div class="docs-list cases-list" id="casesList">
+          <div class="docs-empty">Carregando casos...</div>
+        </div>
+        <div class="cases-pager" id="casesPager">
+          <button class="docs-btn" id="casesPrevBtn" disabled>
+            <i data-lucide="chevron-left" style="width: 14px; height: 14px"></i>
+            Anterior
+          </button>
+          <span id="casesPageInfo" class="cases-page-info">—</span>
+          <button class="docs-btn" id="casesNextBtn" disabled>
+            Próxima
+            <i data-lucide="chevron-right" style="width: 14px; height: 14px"></i>
+          </button>
+        </div>
+        <div class="docs-status" id="casesStatusWrap">
+          <span id="casesStatus"></span>
+        </div>
+      </div>
+    </div>
     <script>
       lucide.createIcons();
       marked.setOptions({
@@ -1973,6 +2874,7 @@
       const RESET_URL = `${API_BASE}/aspiramaq-DatabaseSetup`;
       const PRUNE_URL = `${API_BASE}/aspiramaq-prune-history`;
       const HEALTH_URL = `${API_BASE}/aspiramaq_health`;
+      const CASES_URL = `${API_BASE}/aspiramaq-cases`;
 
       // Estado
       let currentSessionId = null;
@@ -2481,6 +3383,135 @@
         }
       }
 
+      function isCaseIntentMessage(message) {
+        const text = String(message || "").toLowerCase();
+        if (isCaseAnalysisMessage(text)) return false;
+        const triggers = [
+          "caso de cliente",
+          "caso cliente",
+          "cliente novo",
+          "novo cliente",
+          "substituicao",
+          "substituição",
+          "equipamento com problema",
+          "dimensionamento",
+          "orcamento",
+          "orçamento",
+        ];
+        return triggers.some((t) => text.includes(t));
+      }
+
+      function isCaseAnalysisMessage(message) {
+        const text = String(message || "").toLowerCase();
+        const triggers = [
+          "quero solucionar este caso",
+          "aba de formulário",
+          "aba de formulario",
+          "formulário de novo cliente",
+          "formulario de novo cliente",
+          "analise como um caso técnico-comercial real",
+          "analise como um caso tecnico-comercial real",
+          "casos similares aprovados",
+          "não abra quick_form",
+          "nao abra quick_form",
+        ];
+        return triggers.some((t) => text.includes(t));
+      }
+
+      function hasInteractiveBlocks(text) {
+        const raw = String(text || "").toUpperCase();
+        return raw.includes("QUICK_FORM:") || raw.includes("QUICK_REPLIES:");
+      }
+
+      function injectFallbackCaseForm(content) {
+        const fallbackForm = [
+          {
+            q: "Qual o processo/máquina que gera o pó?",
+            options: [
+              "Lixadeira/serra",
+              "Solda/corte",
+              "Usinagem/metal",
+              "Outro",
+            ],
+          },
+          {
+            q: "Qual o material do particulado?",
+            options: ["Madeira", "MDF", "Metal", "Outro", "Não sei"],
+          },
+          {
+            q: "Esse pó é tratado como combustível/ATEX?",
+            options: ["Sim", "Não", "Não sei"],
+          },
+          {
+            q: "Quantas bocas e qual Ø de cada uma? (ex.: 3 de 5\")",
+          },
+          {
+            q: "Distância até o coletor (m) e nº de curvas?",
+          },
+          {
+            q: "Temperatura/umidade/óleo na corrente?",
+            options: [
+              "Seco e frio",
+              "Esquenta",
+              "Tem umidade",
+              "Tem óleo",
+              "Não sei",
+            ],
+          },
+          {
+            q: "Há exigência de alta eficiência?",
+            options: [
+              "Coleta operacional",
+              "Alta eficiência",
+              "Não sei",
+            ],
+          },
+        ];
+
+        const intro =
+          "Entendi que voce quer abrir um caso tecnico. Para agilizar, preencha este formulario:\n\n";
+        const block = `<!--QUICK_FORM:${JSON.stringify(fallbackForm)}-->`;
+        return `${String(content || "").trim()}\n\n${intro}${block}`;
+      }
+
+      function stripInteractiveBlocks(content) {
+        return String(content || "")
+          .replace(/<!--\s*QUICK_FORM\s*:\s*\[[\s\S]*?\]\s*-->/gi, "")
+          .replace(/<!--\s*QUICK_REPLIES\s*:\s*\[[\s\S]*?\]\s*-->/gi, "")
+          .replace(/Entendi que voce quer abrir um caso tecnico\. Para agilizar, preencha este formulario:\s*/gi, "")
+          .replace(/Entendi que você quer abrir um caso técnico\. Para agilizar, preencha este formulário:\s*/gi, "")
+          .trim();
+      }
+
+      function sanitizeAssistantLanguage(content) {
+        return String(content || "")
+          .replace(/\bMídia\b/g, "Filtro")
+          .replace(/\bmídia\b/g, "filtro")
+          .replace(/\bMidia\b/g, "Filtro")
+          .replace(/\bmidia\b/g, "filtro")
+          .replace(/Filtro \(interno\)/gi, "Filtro")
+          .replace(/\bcolmatação\b/gi, "saturação")
+          .replace(/\bcolmatar\b/gi, "saturar")
+          .replace(/\bcolmatou\b/gi, "saturou")
+          .replace(/^\|\s*Não localizado[^\n]*\|\s*$/gim, "")
+          .replace(/^\|\s*Caso típico da base[^\n]*\|\s*$/gim, "")
+          .replace(
+            /(##\s*[^\n]*Casos parecidos[^\n]*\n)\s*\|[^\n]*Cliente[^\n]*\n\|[^\n]*\n\|\s*[—-]\s*\|\s*[—-]\s*\|\s*[—-]\s*\|\s*[—-]\s*\|\s*/gi,
+            "$1\nNão achei caso parecido aprovado no histórico nessa busca.\n",
+          );
+      }
+
+      function normalizeAssistantResponseForUserMessage(response, userMessage) {
+        response = sanitizeAssistantLanguage(response);
+        if (isCaseAnalysisMessage(userMessage)) {
+          return stripInteractiveBlocks(response);
+        }
+        const shouldForceForm = isCaseIntentMessage(userMessage);
+        return shouldForceForm && !hasInteractiveBlocks(response)
+          ? injectFallbackCaseForm(response)
+          : response;
+      }
+
       async function sendQuickReply(label) {
         if (isLoading) return;
         renderMessage({ role: "user", content: label });
@@ -2489,9 +3520,503 @@
         const response = await sendMessage(label, currentSessionId);
         hideTypingIndicator();
         if (response !== "Geração cancelada.") {
-          renderMessage({ role: "assistant", content: response });
+          const finalResponse = normalizeAssistantResponseForUserMessage(
+            response,
+            label,
+          );
+          renderMessage({ role: "assistant", content: finalResponse });
         }
         setLoading(false);
+      }
+
+      const GUIDED_SEGMENT_OPTIONS = [
+        "Marcenaria / madeira",
+        "Solda / corte",
+        "Usinagem / metal",
+        "Alimentos / orgânicos",
+        "Mineração / cimento",
+        "Jateamento",
+        "Cozinha / coifa",
+        "Outro / não sei",
+      ];
+
+      const GUIDED_SEGMENT_FIELDS = {
+        madeira: [
+          {
+            id: "processo",
+            q: "Qual é o processo gerador?",
+            options: ["Lixadeira / serra", "Marcenaria geral", "MDF / fórmica", "CNC / fresa", "Outro"],
+          },
+          {
+            id: "material",
+            q: "É madeira maciça, MDF ou ambos?",
+            options: ["Madeira maciça", "MDF", "Ambos", "Não sei"],
+          },
+          {
+            id: "atex",
+            q: "O cliente trata esse pó como combustível/ATEX?",
+            options: ["Sim, é ATEX", "Não é ATEX", "Não sei"],
+          },
+          { id: "bocas", q: "Quantas bocas, qual diâmetro de cada uma e quantas trabalham simultâneas?" },
+          { id: "rede", q: "Distância máquina até coletor em metros e número de curvas?" },
+          {
+            id: "corrente",
+            q: "Temperatura, umidade ou óleo na corrente?",
+            options: ["Seco e frio", "Esquenta um pouco", "Tem umidade", "Tem óleo", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "Há exigência de alta eficiência ou norma de emissão?",
+            options: ["Só coleta operacional", "Precisa alta eficiência", "Não sei"],
+          },
+        ],
+        solda: [
+          {
+            id: "processo",
+            q: "Qual o processo de solda ou corte?",
+            options: ["Solda MIG/MAG", "Solda TIG", "Corte plasma", "Oxicorte", "Outro"],
+          },
+          {
+            id: "material",
+            q: "Qual o metal-base?",
+            options: ["Aço carbono", "Inox", "Alumínio", "Galvanizado", "Não sei"],
+          },
+          {
+            id: "corrente",
+            q: "A chapa tem óleo/proteção ou gera névoa?",
+            options: ["Sim, tem óleo", "Chapa limpa", "Tem umidade", "Não sei"],
+          },
+          { id: "bocas", q: "Quantos postos, captação por braço/coifa e quantos simultâneos?" },
+          { id: "rede", q: "Distância posto até coletor em metros e número de curvas?" },
+          {
+            id: "calor",
+            q: "Como é o calor perto da captação?",
+            options: ["Esquenta muito", "Morno", "Temperatura ambiente", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "Há exigência de eficiência para fumos metálicos?",
+            options: ["Só coleta operacional", "Precisa alta eficiência", "Não sei"],
+          },
+        ],
+        usinagem: [
+          {
+            id: "processo",
+            q: "Qual máquina/processo gera o particulado?",
+            options: ["Torno CNC", "Fresa", "Retífica", "Serra fita", "Outro"],
+          },
+          {
+            id: "material",
+            q: "Qual material usinado?",
+            options: ["Aço", "Alumínio", "Ferro fundido", "Inox", "Não sei"],
+          },
+          {
+            id: "corrente",
+            q: "Existe refrigeração/óleo na operação?",
+            options: ["A seco", "Óleo solúvel", "Óleo integral", "Não sei"],
+          },
+          { id: "bocas", q: "Quantas captações, diâmetro de cada uma e simultaneidade?" },
+          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "temperatura",
+            q: "Temperatura da corrente?",
+            options: ["Ambiente", "Morna", "Quente", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "A exigência é coleta operacional ou alta eficiência?",
+            options: ["Coleta operacional", "Alta eficiência", "Não sei"],
+          },
+        ],
+        alimentos: [
+          {
+            id: "processo",
+            q: "Qual processo gera o pó?",
+            options: ["Moagem", "Peneiramento", "Ensaque", "Transporte", "Outro"],
+          },
+          {
+            id: "material",
+            q: "Qual material orgânico?",
+            options: ["Açúcar", "Farinha", "Grãos/ração", "Cacau", "Outro"],
+          },
+          {
+            id: "atex",
+            q: "O cliente trata esse pó como combustível/ATEX?",
+            options: ["Sim, é ATEX", "Não é ATEX", "Não sei"],
+          },
+          { id: "bocas", q: "Quantos pontos, diâmetro de cada um e simultaneidade?" },
+          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "corrente",
+            q: "Há umidade, vapor ou pó higroscópico?",
+            options: ["Seco", "Tem umidade", "Ambiente úmido", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "Há exigência sanitária/emissão ou só coleta operacional?",
+            options: ["Só coleta operacional", "Alta eficiência", "Não sei"],
+          },
+        ],
+        mineracao: [
+          {
+            id: "processo",
+            q: "Qual processo gera a poeira?",
+            options: ["Moinho", "Britador", "Ensacadeira", "Transferência", "Outro"],
+          },
+          {
+            id: "material",
+            q: "Qual material?",
+            options: ["Cimento", "Cal", "Sílica", "Minério", "Outro"],
+          },
+          {
+            id: "abrasividade",
+            q: "O pó é abrasivo e/ou quente?",
+            options: ["Abrasivo", "Quente", "Abrasivo e quente", "Não sei"],
+          },
+          { id: "bocas", q: "Quantos pontos, diâmetro de cada um e simultaneidade?" },
+          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "corrente",
+            q: "Temperatura contínua e picos, se souber?",
+            options: ["Ambiente", "Até 90°C", "Acima de 90°C", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "Há exigência de emissão/alta eficiência?",
+            options: ["Só coleta operacional", "Alta eficiência", "Não sei"],
+          },
+        ],
+        jateamento: [
+          {
+            id: "processo",
+            q: "Como é o jateamento?",
+            options: ["Cabine fechada", "Ao ar livre", "Sala de jato", "Outro"],
+          },
+          {
+            id: "material",
+            q: "Qual abrasivo/material principal?",
+            options: ["Granalha de aço", "Óxido de alumínio", "Microesfera", "Areia/sílica", "Não sei"],
+          },
+          {
+            id: "reciclagem",
+            q: "O abrasivo é reciclado no processo?",
+            options: ["Sim", "Não", "Não sei"],
+          },
+          { id: "bocas", q: "Quantas captações/pontos, diâmetro e simultaneidade?" },
+          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "corrente",
+            q: "Há umidade ou óleo junto da poeira?",
+            options: ["Seco", "Tem umidade", "Tem óleo", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "Há exigência de alta eficiência?",
+            options: ["Só coleta operacional", "Alta eficiência", "Não sei"],
+          },
+        ],
+        cozinha: [
+          {
+            id: "processo",
+            q: "Qual fonte principal?",
+            options: ["Chapa/fritura", "Forno", "Char-broiler", "Coifa geral", "Outro"],
+          },
+          {
+            id: "material",
+            q: "O que predomina na corrente?",
+            options: ["Gordura", "Fumaça", "Vapor", "Misturado", "Não sei"],
+          },
+          { id: "bocas", q: "Quantidade de coifas/pontos, dimensões ou diâmetros e simultaneidade?" },
+          { id: "rede", q: "Distância até o equipamento/coletor em metros e número de curvas?" },
+          {
+            id: "temperatura",
+            q: "Temperatura aproximada na coifa?",
+            options: ["Morna", "Quente", "Muito quente", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "O objetivo é controle de odor/gordura ou alta eficiência de particulado?",
+            options: ["Gordura/odor", "Particulado fino", "Não sei"],
+          },
+        ],
+        outro: [
+          { id: "processo", q: "Qual máquina/processo gera o pó, fumo ou névoa?" },
+          { id: "material", q: "Qual o material do particulado?" },
+          {
+            id: "atex",
+            q: "Existe risco combustível/ATEX?",
+            options: ["Sim", "Não", "Não sei"],
+          },
+          { id: "bocas", q: "Quantas bocas/pontos, diâmetro de cada um e simultaneidade?" },
+          { id: "rede", q: "Distância até o coletor em metros e número de curvas?" },
+          {
+            id: "corrente",
+            q: "Temperatura, umidade, óleo ou química agressiva?",
+            options: ["Seco e frio", "Tem umidade", "Tem óleo", "Química agressiva", "Não sei"],
+          },
+          {
+            id: "eficiencia",
+            q: "Há exigência de alta eficiência?",
+            options: ["Só coleta operacional", "Alta eficiência", "Não sei"],
+          },
+        ],
+      };
+
+      function guidedSegmentKey(value) {
+        const text = String(value || "").toLowerCase();
+        if (text.includes("marcenaria") || text.includes("madeira")) return "madeira";
+        if (text.includes("solda") || text.includes("corte")) return "solda";
+        if (text.includes("usinagem") || text.includes("metal")) return "usinagem";
+        if (text.includes("alimentos") || text.includes("org")) return "alimentos";
+        if (text.includes("mineração") || text.includes("mineracao") || text.includes("cimento")) return "mineracao";
+        if (text.includes("jateamento")) return "jateamento";
+        if (text.includes("cozinha") || text.includes("coifa")) return "cozinha";
+        return "outro";
+      }
+
+      function guidedFieldsFor(intent, answers) {
+        if (intent === "new-case") {
+          const segment = answers.segmento;
+          const first = {
+            id: "segmento",
+            q: "Qual o segmento/processo principal do cliente?",
+            options: GUIDED_SEGMENT_OPTIONS,
+          };
+          return segment
+            ? [first].concat(GUIDED_SEGMENT_FIELDS[guidedSegmentKey(segment)] || GUIDED_SEGMENT_FIELDS.outro)
+            : [first];
+        }
+        if (intent === "filter-help") {
+          return [
+            {
+              id: "problema",
+              q: "O que aconteceu com o filtro?",
+              options: ["Saturou rápido", "Rasgou", "Passa pó", "Troca preventiva", "Não sei"],
+            },
+            {
+              id: "coletor",
+              q: "Qual o tipo de coletor atual?",
+              options: ["Mangas", "Cartucho/plissado", "Ciclone", "Não sei"],
+            },
+            { id: "processo", q: "Qual processo e material geram o pó/fumo/névoa?" },
+            {
+              id: "corrente",
+              q: "Tem óleo, névoa, umidade ou calor?",
+              options: ["Tem óleo/névoa", "Tem umidade", "Seco", "Quente", "Não sei"],
+            },
+            { id: "filtro_atual", q: "Sabe o filtro/código atual ou modelo do equipamento?" },
+          ];
+        }
+        return [
+          {
+            id: "sintoma",
+            q: "Qual sintoma principal?",
+            options: ["Perde sucção", "Vaza pó", "Motor fraco", "Filtro satura", "Ruído/vibração"],
+          },
+          { id: "processo", q: "Qual processo/material do cliente?" },
+          { id: "equipamento", q: "Qual equipamento/modelo/motor instalado, se souber?" },
+          { id: "rede", q: "Quantas captações, distâncias e curvas principais?" },
+          {
+            id: "mudanca",
+            q: "Isso começou depois de alguma mudança?",
+            options: ["Novo processo", "Aumentou pontos", "Trocou filtro", "Sempre foi assim", "Não sei"],
+          },
+        ];
+      }
+
+      function guidedIntentTitle(intent) {
+        if (intent === "filter-help") return "Troca ou saturação de filtro";
+        if (intent === "problem-help") return "Diagnóstico de equipamento";
+        return "Caso novo de cliente";
+      }
+
+      function guidedIntentPrefix(intent) {
+        if (intent === "filter-help") {
+          return "Quero ajuda com substituição/saturação de filtro. Use estes dados para diagnosticar e buscar históricos coerentes antes de recomendar:";
+        }
+        if (intent === "problem-help") {
+          return "Quero ajuda para diagnosticar um equipamento com problema. Use estes dados para filtrar histórico, apontar hipóteses e pedir só pendências críticas:";
+        }
+        return "Quero ajuda com um caso novo de cliente. Use estes dados para filtrar históricos reais, adaptar o contexto ao segmento e fazer perguntas complementares somente se faltar algo crítico:";
+      }
+
+      function hasSegmentHint(message) {
+        const text = String(message || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        return [
+          "marcenaria",
+          "madeira",
+          "mdf",
+          "solda",
+          "corte",
+          "usinagem",
+          "metal",
+          "alimento",
+          "farinha",
+          "acucar",
+          "mineracao",
+          "cimento",
+          "jateamento",
+          "cozinha",
+          "coifa",
+          "lixadeira",
+          "serra",
+          "cnc",
+          "moinho",
+        ].some((term) => text.includes(term));
+      }
+
+      function shouldOpenGuidedCaseIntake(message) {
+        const text = String(message || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        const wantsCaseHelp = [
+          "ajuda com um caso",
+          "ajuda com caso",
+          "caso novo",
+          "caso de cliente",
+          "cliente novo",
+          "preciso dimensionar",
+          "dimensionamento",
+        ].some((term) => text.includes(term));
+        return wantsCaseHelp && !hasSegmentHint(text);
+      }
+
+      function renderGuidedCaseForm(intent) {
+        if (isLoading) return;
+        hideEmptyState();
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "message assistant";
+        messageDiv.setAttribute("data-timestamp", Date.now());
+
+        const avatarDiv = document.createElement("div");
+        avatarDiv.className = "message-avatar";
+        avatarDiv.innerHTML = '<i data-lucide="bot"></i>';
+
+        const content = document.createElement("div");
+        content.className = "message-content";
+        content.innerHTML = marked.parse(
+          `Vamos organizar esse atendimento. Responda o formulário abaixo e eu envio tudo em uma mensagem só, já com contexto suficiente para filtrar histórico e continuar a definição.`,
+        );
+
+        const formDiv = document.createElement("div");
+        formDiv.className = "guided-form";
+        const state = { answers: {}, index: 0 };
+
+        function paintStep() {
+          const fields = guidedFieldsFor(intent, state.answers);
+          if (state.index >= fields.length) state.index = fields.length - 1;
+          const field = fields[state.index];
+          const currentValue = state.answers[field.id] || "";
+          formDiv.innerHTML = "";
+
+          const head = document.createElement("div");
+          head.className = "guided-form-head";
+          head.innerHTML = `
+            <div>
+              <div class="guided-kicker">Formulário rápido</div>
+              <div class="guided-title">${docsEscHtml(guidedIntentTitle(intent))}</div>
+            </div>
+            <div class="guided-progress">${state.index + 1} de ${fields.length}</div>
+          `;
+          formDiv.appendChild(head);
+
+          const step = document.createElement("div");
+          step.className = "guided-step";
+          const label = document.createElement("div");
+          label.className = "qf-q";
+          label.textContent = field.q;
+          step.appendChild(label);
+
+          const input = document.createElement("input");
+          input.type = "text";
+          input.className = "qf-input";
+          input.placeholder = "Digite a resposta ou escolha uma opção";
+          input.value = currentValue;
+          input.addEventListener("input", () => {
+            state.answers[field.id] = input.value;
+            step.querySelectorAll(".quick-reply-chip").forEach((chip) => {
+              chip.classList.toggle("selected", chip.textContent === input.value);
+            });
+          });
+          step.appendChild(input);
+
+          if (Array.isArray(field.options)) {
+            const chips = document.createElement("div");
+            chips.className = "qf-chips";
+            field.options.forEach((option) => {
+              const chip = document.createElement("button");
+              chip.type = "button";
+              chip.className = "quick-reply-chip";
+              chip.textContent = option;
+              if (option === currentValue) chip.classList.add("selected");
+              chip.addEventListener("click", () => {
+                state.answers[field.id] = option;
+                input.value = option;
+                chips.querySelectorAll(".quick-reply-chip").forEach((c) => c.classList.remove("selected"));
+                chip.classList.add("selected");
+                if (field.id === "segmento") {
+                  state.index = 1;
+                  paintStep();
+                }
+              });
+              chips.appendChild(chip);
+            });
+            step.appendChild(chips);
+          }
+
+          formDiv.appendChild(step);
+
+          const nav = document.createElement("div");
+          nav.className = "guided-nav";
+          const backBtn = document.createElement("button");
+          backBtn.type = "button";
+          backBtn.className = "guided-btn";
+          backBtn.textContent = "Voltar";
+          backBtn.disabled = state.index === 0;
+          backBtn.addEventListener("click", () => {
+            if (state.index > 0) {
+              state.index -= 1;
+              paintStep();
+            }
+          });
+
+          const nextBtn = document.createElement("button");
+          nextBtn.type = "button";
+          nextBtn.className = "guided-btn primary";
+          nextBtn.textContent = state.index === fields.length - 1 ? "Enviar contexto" : "Próxima";
+          nextBtn.addEventListener("click", () => {
+            state.answers[field.id] = input.value.trim() || "Não sei";
+            const latestFields = guidedFieldsFor(intent, state.answers);
+            if (state.index < latestFields.length - 1) {
+              state.index += 1;
+              paintStep();
+              return;
+            }
+            const lines = latestFields
+              .map((f, idx) => `${idx + 1}. ${f.q}\n   -> ${state.answers[f.id] || "Não sei"}`)
+              .join("\n\n");
+            const compiled = `${guidedIntentPrefix(intent)}\n\n${lines}`;
+            formDiv.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
+            sendQuickReply(compiled);
+          });
+
+          nav.appendChild(backBtn);
+          nav.appendChild(nextBtn);
+          formDiv.appendChild(nav);
+          setTimeout(() => input.focus(), 0);
+        }
+
+        paintStep();
+        content.appendChild(formDiv);
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(content);
+        elements.messagesContainer.appendChild(messageDiv);
+        elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
+        lucide.createIcons();
       }
       // ============================================
       // UI FUNCTIONS
@@ -2686,7 +4211,7 @@
 
         if (message.role === "assistant") {
           // Extract quick replies block: <!--QUICK_REPLIES:[...]-->
-          let rawContent = message.content || "";
+          let rawContent = sanitizeAssistantLanguage(message.content || "");
           let quickReplies = null;
           let quickForm = null;
 
@@ -2815,7 +4340,7 @@
                   return `${i + 1}. ${s.q}\n   → ${v}`;
                 })
                 .join("\n\n");
-              const compiled = `📋 Respostas do formulário:\n\n${lines}`;
+              const compiled = `Respostas do formulário para continuar o caso técnico. Use estas respostas junto com o histórico da conversa, filtre casos reais coerentes no histórico e faça apenas perguntas complementares se ainda faltar dado crítico:\n\n${lines}`;
               // Lock the form after submit
               formDiv
                 .querySelectorAll("input, button")
@@ -2926,6 +4451,17 @@
           elements.messagesContainer.style.display = "block";
         }
       }
+
+      document.querySelectorAll("[data-starter]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.dataset.starter;
+          if (action === "cases-modal") {
+            if (casesEls && casesEls.openBtn) casesEls.openBtn.click();
+            return;
+          }
+          renderGuidedCaseForm(action);
+        });
+      });
 
       // Helper functions for loading states
       function showSkeletonSessions() {
@@ -3256,6 +4792,14 @@
           }
         }
 
+        if (shouldOpenGuidedCaseIntake(message)) {
+          renderMessage({ role: "user", content: message });
+          elements.messageInput.value = "";
+          elements.messageInput.style.height = "auto";
+          renderGuidedCaseForm("new-case");
+          return;
+        }
+
         renderMessage({ role: "user", content: message });
         elements.messageInput.value = "";
         elements.messageInput.style.height = "auto";
@@ -3269,7 +4813,11 @@
 
         // Should only render if NOT aborted
         if (response !== "Geração cancelada.") {
-          renderMessage({ role: "assistant", content: response });
+          const finalResponse = normalizeAssistantResponseForUserMessage(
+            response,
+            message,
+          );
+          renderMessage({ role: "assistant", content: finalResponse });
         }
 
         setLoading(false);
@@ -3420,6 +4968,589 @@
           e.target.value = "";
         }
       });
+
+      // ============================================
+      // GERENCIADOR DE DOCUMENTOS DO RAG
+      // ============================================
+      const DOCS_LIST_URL = `${API_BASE}/aspiramaq-docs-list`;
+      const DOCS_DELETE_URL = `${API_BASE}/aspiramaq-docs-delete`;
+      const DOCS_REPROCESS_URL = `${API_BASE}/aspiramaq-docs-reprocess`;
+
+      const docsEls = {
+        openBtn: document.getElementById("docsBtn"),
+        modal: document.getElementById("docsModal"),
+        list: document.getElementById("docsList"),
+        selectAll: document.getElementById("docsSelectAll"),
+        addBtn: document.getElementById("docsAddBtn"),
+        reprocessBtn: document.getElementById("docsReprocessBtn"),
+        deleteBtn: document.getElementById("docsDeleteBtn"),
+        fileInput: document.getElementById("docsFileInput"),
+        refreshBtn: document.getElementById("docsRefreshBtn"),
+        closeBtn: document.getElementById("docsCloseBtn"),
+        statusWrap: document.getElementById("docsStatusWrap"),
+        status: document.getElementById("docsStatus"),
+        confirmBar: document.getElementById("docsConfirmBar"),
+        confirmText: document.getElementById("docsConfirmText"),
+        confirmOk: document.getElementById("docsConfirmOk"),
+        confirmCancel: document.getElementById("docsConfirmCancel"),
+      };
+
+      let docsCache = [];
+      let docsBusy = false;
+      let docsPendingDeleteIds = null;
+
+      function docsEscHtml(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function docsFmtDate(d) {
+        if (!d) return "—";
+        const dt = new Date(d);
+        return isNaN(dt)
+          ? "—"
+          : dt.toLocaleDateString("pt-BR") +
+              " " +
+              dt.toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+      }
+
+      function setDocsStatus(msg, type) {
+        docsEls.status.textContent = msg || "";
+        docsEls.statusWrap.className = "docs-status" + (type ? " " + type : "");
+      }
+
+      function docsSelectedIds() {
+        return Array.from(
+          docsEls.list.querySelectorAll(".doc-check:checked"),
+        ).map((cb) => cb.closest(".doc-row").dataset.id);
+      }
+
+      function updateDocsButtons() {
+        const sel = docsSelectedIds().length;
+        docsEls.reprocessBtn.disabled = docsBusy || sel === 0;
+        docsEls.deleteBtn.disabled = docsBusy || sel === 0;
+        docsEls.addBtn.disabled = docsBusy;
+        docsEls.refreshBtn.disabled = docsBusy;
+        const checks = docsEls.list.querySelectorAll(".doc-check");
+        docsEls.selectAll.checked =
+          checks.length > 0 && sel === checks.length;
+      }
+
+      function renderDocs() {
+        if (!docsCache.length) {
+          docsEls.list.innerHTML =
+            '<div class="docs-empty">Nenhum documento na base de conhecimento ainda.<br />Use "Adicionar arquivos" para enviar.</div>';
+          updateDocsButtons();
+          return;
+        }
+        docsEls.list.innerHTML = docsCache
+          .map((d) => {
+            const title = docsEscHtml(d.title || d.id);
+            const nameHtml = d.url
+              ? `<a href="${docsEscHtml(d.url)}" target="_blank" rel="noopener">${title}</a>`
+              : title;
+            return `
+            <div class="doc-row" data-id="${docsEscHtml(d.id)}">
+              <input type="checkbox" class="doc-check" />
+              <i data-lucide="${d.has_schema ? "table" : "file-text"}" style="width:16px;height:16px;color:var(--text-secondary);flex-shrink:0"></i>
+              <div class="doc-info">
+                <div class="doc-name">${nameHtml}</div>
+                <div class="doc-meta">
+                  <span>${docsFmtDate(d.created_at)}</span>
+                  <span>${Number(d.chunks) || 0} chunks</span>
+                  <span class="doc-badge ${d.session_id ? "temp" : ""}">${d.session_id ? "sessão" : "permanente"}</span>
+                </div>
+              </div>
+              <div class="doc-actions">
+                <button class="doc-icon-btn" data-act="reprocess" title="Reprocessar este documento">
+                  <i data-lucide="refresh-ccw" style="width:15px;height:15px"></i>
+                </button>
+                <button class="doc-icon-btn del" data-act="delete" title="Excluir este documento">
+                  <i data-lucide="trash-2" style="width:15px;height:15px"></i>
+                </button>
+              </div>
+            </div>`;
+          })
+          .join("");
+        lucide.createIcons();
+        updateDocsButtons();
+      }
+
+      async function fetchDocs() {
+        setDocsStatus("Carregando documentos...");
+        try {
+          const res = await fetch(DOCS_LIST_URL);
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          let data = await res.json();
+          if (!Array.isArray(data)) data = data ? [data] : [];
+          docsCache = data.filter((d) => d && d.id);
+          renderDocs();
+          setDocsStatus(`${docsCache.length} documento(s) na base.`);
+        } catch (e) {
+          console.error("Docs list error:", e);
+          docsCache = [];
+          docsEls.list.innerHTML =
+            '<div class="docs-empty">Falha ao carregar a lista.<br />Verifique se o workflow <b>Aspiramaq-Docs-Manager</b> está ativo no n8n.</div>';
+          setDocsStatus("Erro ao carregar documentos.", "error");
+          updateDocsButtons();
+        }
+      }
+
+      async function reprocessDocs(ids) {
+        if (!ids.length || docsBusy) return;
+        docsBusy = true;
+        updateDocsButtons();
+        setDocsStatus(
+          `Reprocessando ${ids.length} documento(s)... isso pode levar alguns minutos.`,
+          "warning",
+        );
+        try {
+          const res = await fetch(DOCS_REPROCESS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ids }),
+          });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          setDocsStatus(
+            `${ids.length} documento(s) reprocessado(s) com sucesso!`,
+            "success",
+          );
+        } catch (e) {
+          console.error("Docs reprocess error:", e);
+          setDocsStatus(
+            "Erro ao reprocessar. Verifique o workflow Aspiramaq-RAG no n8n.",
+            "error",
+          );
+        }
+        docsBusy = false;
+        await fetchDocs();
+      }
+
+      function askDeleteDocs(ids) {
+        if (!ids.length || docsBusy) return;
+        docsPendingDeleteIds = ids;
+        docsEls.confirmText.textContent = `Excluir ${ids.length} documento(s) permanentemente (banco + Google Drive)?`;
+        docsEls.confirmBar.classList.add("show");
+      }
+
+      async function doDeleteDocs(ids) {
+        docsEls.confirmBar.classList.remove("show");
+        if (!ids || !ids.length) return;
+        docsBusy = true;
+        updateDocsButtons();
+        setDocsStatus(`Excluindo ${ids.length} documento(s)...`, "warning");
+        try {
+          const res = await fetch(DOCS_DELETE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ids }),
+          });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          setDocsStatus(
+            `${ids.length} documento(s) excluído(s) com sucesso.`,
+            "success",
+          );
+        } catch (e) {
+          console.error("Docs delete error:", e);
+          setDocsStatus("Erro ao excluir documentos.", "error");
+        }
+        docsBusy = false;
+        docsPendingDeleteIds = null;
+        await fetchDocs();
+      }
+
+      async function uploadDocsFiles(files) {
+        if (!files.length || docsBusy) return;
+        docsBusy = true;
+        updateDocsButtons();
+        let ok = 0;
+        let fail = 0;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          setDocsStatus(
+            `Enviando ${i + 1}/${files.length}: ${file.name}...`,
+            "warning",
+          );
+          try {
+            const formData = new FormData();
+            formData.append("file", file);
+            // Sem sessionId: documento permanente da base de conhecimento
+            const res = await fetch(UPLOAD_URL, {
+              method: "POST",
+              body: formData,
+            });
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            ok++;
+          } catch (e) {
+            console.error("Docs upload error:", file.name, e);
+            fail++;
+          }
+        }
+        setDocsStatus(
+          fail === 0
+            ? `${ok} arquivo(s) enviado(s) e indexado(s) com sucesso!`
+            : `${ok} enviado(s), ${fail} falhou(falharam).`,
+          fail === 0 ? "success" : "error",
+        );
+        docsBusy = false;
+        await fetchDocs();
+      }
+
+      // Listeners do gerenciador de documentos
+      if (docsEls.openBtn) {
+        docsEls.openBtn.addEventListener("click", () => {
+          docsEls.modal.classList.add("show");
+          lucide.createIcons();
+          fetchDocs();
+        });
+      }
+      docsEls.closeBtn.addEventListener("click", () => {
+        docsEls.modal.classList.remove("show");
+        docsEls.confirmBar.classList.remove("show");
+      });
+      docsEls.modal.addEventListener("click", (e) => {
+        if (e.target === docsEls.modal) {
+          docsEls.modal.classList.remove("show");
+          docsEls.confirmBar.classList.remove("show");
+        }
+      });
+      docsEls.refreshBtn.addEventListener("click", fetchDocs);
+      docsEls.selectAll.addEventListener("change", () => {
+        docsEls.list
+          .querySelectorAll(".doc-check")
+          .forEach((cb) => (cb.checked = docsEls.selectAll.checked));
+        updateDocsButtons();
+      });
+      docsEls.list.addEventListener("change", (e) => {
+        if (e.target.classList.contains("doc-check")) updateDocsButtons();
+      });
+      docsEls.list.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-act]");
+        if (!btn) return;
+        const id = btn.closest(".doc-row").dataset.id;
+        if (btn.dataset.act === "reprocess") reprocessDocs([id]);
+        else if (btn.dataset.act === "delete") askDeleteDocs([id]);
+      });
+      docsEls.reprocessBtn.addEventListener("click", () =>
+        reprocessDocs(docsSelectedIds()),
+      );
+      docsEls.deleteBtn.addEventListener("click", () =>
+        askDeleteDocs(docsSelectedIds()),
+      );
+      docsEls.confirmCancel.addEventListener("click", () => {
+        docsEls.confirmBar.classList.remove("show");
+        docsPendingDeleteIds = null;
+      });
+      docsEls.confirmOk.addEventListener("click", () =>
+        doDeleteDocs(docsPendingDeleteIds),
+      );
+      docsEls.addBtn.addEventListener("click", () =>
+        docsEls.fileInput.click(),
+      );
+      docsEls.fileInput.addEventListener("change", async (e) => {
+        const files = Array.from(e.target.files || []);
+        e.target.value = "";
+        await uploadDocsFiles(files);
+      });
+
+      // ============================================
+      // CASOS / HISTÓRICO DE CLIENTES
+      // ============================================
+      const casesEls = {
+        openBtn: document.getElementById("casesBtn"),
+        modal: document.getElementById("casesModal"),
+        list: document.getElementById("casesList"),
+        search: document.getElementById("casesSearch"),
+        tabs: Array.from(document.querySelectorAll(".cases-tab")),
+        statusFilter: document.getElementById("casesStatusFilter"),
+        refreshBtn: document.getElementById("casesRefreshBtn"),
+        closeBtn: document.getElementById("casesCloseBtn"),
+        prevBtn: document.getElementById("casesPrevBtn"),
+        nextBtn: document.getElementById("casesNextBtn"),
+        pageInfo: document.getElementById("casesPageInfo"),
+        statusWrap: document.getElementById("casesStatusWrap"),
+        status: document.getElementById("casesStatus"),
+      };
+
+      const CASES_PAGE_SIZE = 20;
+      let casesAll = [];
+      let casesFiltered = [];
+      let casesPage = 0;
+      let casesLoaded = false;
+      let casesSource = "formulario";
+
+      const CASE_STATUS_META = {
+        aprovado: { icon: "✅", label: "Aprovado" },
+        pendente: { icon: "⚠️", label: "Pendente" },
+        reprovado: { icon: "❌", label: "Reprovado" },
+        desconhecido: { icon: "•", label: "Sem status" },
+      };
+
+      function setCasesStatus(msg, type) {
+        casesEls.status.textContent = msg || "";
+        casesEls.statusWrap.className =
+          "docs-status" + (type ? " " + type : "");
+      }
+
+      function casesApplyFilters() {
+        const term = (casesEls.search.value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .trim();
+        const src = casesSource;
+        const st = casesEls.statusFilter.value;
+        casesFiltered = casesAll.filter((c) => {
+          if (src && c.source !== src) return false;
+          if (st && c.status !== st) return false;
+          if (term && !c._search.includes(term)) return false;
+          return true;
+        });
+        casesPage = 0;
+        renderCases();
+      }
+
+      function renderCases() {
+        if (!casesAll.length) {
+          casesEls.list.innerHTML =
+            '<div class="docs-empty">Nenhum caso encontrado.<br />Verifique se o workflow <b>Aspiramaq-Cases</b> está ativo no n8n.</div>';
+          casesEls.pageInfo.textContent = "—";
+          casesEls.prevBtn.disabled = true;
+          casesEls.nextBtn.disabled = true;
+          return;
+        }
+        if (!casesFiltered.length) {
+          casesEls.list.innerHTML =
+            '<div class="docs-empty">Nenhum caso bate com o filtro atual.</div>';
+          casesEls.pageInfo.textContent = "0 de 0";
+          casesEls.prevBtn.disabled = true;
+          casesEls.nextBtn.disabled = true;
+          return;
+        }
+        const totalPages = Math.ceil(casesFiltered.length / CASES_PAGE_SIZE);
+        if (casesPage >= totalPages) casesPage = totalPages - 1;
+        const start = casesPage * CASES_PAGE_SIZE;
+        const pageItems = casesFiltered.slice(start, start + CASES_PAGE_SIZE);
+
+        casesEls.list.innerHTML = pageItems
+          .map((c) => {
+            const stMeta =
+              CASE_STATUS_META[c.status] || CASE_STATUS_META.desconhecido;
+            const srcLabel =
+              c.source === "formulario" ? "Formulário" : "Histórico";
+            const metaParts = [];
+            if (c.po) metaParts.push(`<span>Pó: <b>${docsEscHtml(c.po)}</b></span>`);
+            if (c.processo)
+              metaParts.push(`<span>Processo: <b>${docsEscHtml(c.processo)}</b></span>`);
+            if (c.equipamento)
+              metaParts.push(`<span>Equip.: <b>${docsEscHtml(c.equipamento)}</b></span>`);
+            if (c.motor)
+              metaParts.push(`<span>Motor: <b>${docsEscHtml(c.motor)}</b></span>`);
+            if (c.filtro)
+              metaParts.push(`<span>Filtro: <b>${docsEscHtml(c.filtro)}</b></span>`);
+            const obs = c.observacoes
+              ? `<div class="case-obs">${docsEscHtml(c.observacoes)}</div>`
+              : "";
+            return `
+            <div class="case-card" data-id="${c._id}">
+              <div class="case-card-top">
+                <span class="case-client">${docsEscHtml(c.cliente || "(sem nome)")}</span>
+                <span class="case-badge src-${c.source}">${srcLabel}</span>
+                <span class="case-badge st-${c.status}">${stMeta.icon} ${stMeta.label}</span>
+              </div>
+              <div class="case-meta">${metaParts.join("")}</div>
+              ${obs}
+              <div class="case-actions">
+                <button class="case-ask-btn" data-act="ask" data-id="${c._id}">
+                  <i data-lucide="sparkles" style="width:14px;height:14px"></i>
+                  Perguntar à IA sobre este caso
+                </button>
+              </div>
+            </div>`;
+          })
+          .join("");
+        lucide.createIcons();
+        casesEls.pageInfo.textContent = `Página ${casesPage + 1} de ${totalPages} · ${casesFiltered.length} caso(s)`;
+        casesEls.prevBtn.disabled = casesPage === 0;
+        casesEls.nextBtn.disabled = casesPage >= totalPages - 1;
+      }
+
+      async function fetchCases(force) {
+        if (casesLoaded && !force) {
+          renderCases();
+          return;
+        }
+        setCasesStatus("Carregando casos...");
+        casesEls.list.innerHTML =
+          '<div class="docs-empty">Carregando casos...</div>';
+        try {
+          const res = await fetch(CASES_URL, { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          let data = await res.json();
+          if (!Array.isArray(data)) data = data ? [data] : [];
+          casesAll = data.map((c, i) => {
+            const extra = c.fields
+              ? Object.values(c.fields).join(" ")
+              : "";
+            const searchBlob = [
+              c.cliente,
+              c.po,
+              c.processo,
+              c.equipamento,
+              c.motor,
+              c.filtro,
+              c.observacoes,
+              c.aprovacao,
+              extra,
+            ]
+              .join(" ")
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .toLowerCase();
+            return { ...c, _id: i, _search: searchBlob };
+          });
+          casesLoaded = true;
+          casesApplyFilters();
+          const nHist = casesAll.filter((c) => c.source === "historico").length;
+          const nForm = casesAll.filter((c) => c.source === "formulario").length;
+          setCasesStatus(
+            `${nForm} formulário(s), ${nHist} histórico(s). Use as abas para alternar.`,
+          );
+        } catch (e) {
+          console.error("Cases list error:", e);
+          casesAll = [];
+          casesFiltered = [];
+          renderCases();
+          setCasesStatus(
+            "Erro ao carregar casos. Verifique o workflow Aspiramaq-Cases no n8n.",
+            "error",
+          );
+        }
+      }
+
+      function buildCaseQuestion(c) {
+        const origem =
+          c.source === "formulario" ? "formulário de novo cliente" : "histórico real";
+        const lines = [`Quero solucionar este caso vindo da aba de ${origem}:`, ""];
+        if (c.cliente) lines.push(`- Cliente: ${c.cliente}`);
+        if (c.po) lines.push(`- Pó/Material: ${c.po}`);
+        if (c.processo) lines.push(`- Processo: ${c.processo}`);
+        if (c.equipamento) lines.push(`- Equipamento: ${c.equipamento}`);
+        if (c.motor) lines.push(`- Motor: ${c.motor}`);
+        if (c.filtro) lines.push(`- Filtro usado: ${c.filtro}`);
+        if (c.aprovacao) lines.push(`- Status/Aprovação: ${c.aprovacao}`);
+        if (c.observacoes) lines.push(`- Observações: ${c.observacoes}`);
+        // Campos extras (principalmente para casos vindos do formulário)
+        if (c.fields) {
+          const known = new Set([
+            c.cliente,
+            c.po,
+            c.processo,
+            c.equipamento,
+            c.motor,
+            c.filtro,
+            c.aprovacao,
+            c.observacoes,
+          ]);
+          for (const [k, v] of Object.entries(c.fields)) {
+            const val = String(v == null ? "" : v).trim();
+            if (val && !known.has(val)) lines.push(`- ${k}: ${val}`);
+          }
+        }
+        lines.push("");
+        lines.push(
+          "Analise como um caso técnico-comercial real. Objetivo: entender o problema, apontar riscos/incoerências, dizer o que provavelmente precisa ser corrigido e propor a melhor recomendação inicial.",
+        );
+        lines.push(
+          "Antes de perguntar qualquer coisa, extraia do próprio texto quais campos já estão respondidos pelo contexto (ex.: material, seco/úmido, quantidade de pontos, simultaneidade, vazão, tensão, restrições). Não pergunte novamente nada que já esteja explícito no caso.",
+        );
+        lines.push(
+          "Obrigatório: consulte a base RAG (`search_knowledge_base`) para regras técnicas aplicáveis e consulte o histórico (`Consultar_Planilha_Inteligente1`, aba `historico`) para encontrar 1 a 3 casos similares que deram certo. Separe claramente: Manual/RAG vs. histórico. Não misture fontes e não invente dado que não retornou.",
+        );
+        lines.push(
+          "Responda de forma pontual: diagnóstico, causa provável, o que recomendar, casos similares aprovados e perguntas críticas ainda não respondidas. Liste no máximo 1 a 3 perguntas pendentes, somente lacunas reais. Não abra QUICK_FORM nem refaça dimensionamento completo a menos que eu peça explicitamente.",
+        );
+        return lines.join("\n");
+      }
+
+      function closeCasesModal() {
+        casesEls.modal.classList.remove("show");
+      }
+
+      async function askAIAboutCase(c) {
+        if (!c) return;
+        closeCasesModal();
+        if (window.innerWidth <= 768 && mainGrid) {
+          mainGrid.classList.add("sidebar-closed");
+        }
+        startNewChat();
+        elements.messageInput.value = buildCaseQuestion(c);
+        elements.messageInput.style.height = "auto";
+        elements.messageInput.style.height =
+          elements.messageInput.scrollHeight + "px";
+        await handleSendMessage({ preventDefault: () => {} });
+      }
+
+      // Listeners dos casos
+      if (casesEls.openBtn) {
+        casesEls.openBtn.addEventListener("click", () => {
+          casesEls.modal.classList.add("show");
+          lucide.createIcons();
+          fetchCases(false);
+        });
+      }
+      casesEls.closeBtn.addEventListener("click", closeCasesModal);
+      casesEls.modal.addEventListener("click", (e) => {
+        if (e.target === casesEls.modal) closeCasesModal();
+      });
+      casesEls.refreshBtn.addEventListener("click", () => fetchCases(true));
+      let casesSearchTimer = null;
+      casesEls.search.addEventListener("input", () => {
+        clearTimeout(casesSearchTimer);
+        casesSearchTimer = setTimeout(casesApplyFilters, 180);
+      });
+      casesEls.tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          casesSource = tab.dataset.source || "formulario";
+          casesEls.tabs.forEach((t) => {
+            const active = t === tab;
+            t.classList.toggle("active", active);
+            t.setAttribute("aria-selected", active ? "true" : "false");
+          });
+          casesApplyFilters();
+        });
+      });
+      casesEls.statusFilter.addEventListener("change", casesApplyFilters);
+      casesEls.prevBtn.addEventListener("click", () => {
+        if (casesPage > 0) {
+          casesPage--;
+          renderCases();
+          casesEls.list.scrollTop = 0;
+        }
+      });
+      casesEls.nextBtn.addEventListener("click", () => {
+        const totalPages = Math.ceil(casesFiltered.length / CASES_PAGE_SIZE);
+        if (casesPage < totalPages - 1) {
+          casesPage++;
+          renderCases();
+          casesEls.list.scrollTop = 0;
+        }
+      });
+      casesEls.list.addEventListener("click", (e) => {
+        const btn = e.target.closest('[data-act="ask"]');
+        if (!btn) return;
+        const id = Number(btn.dataset.id);
+        const c = casesAll.find((x) => x._id === id);
+        askAIAboutCase(c);
+      });
+
       // Handle Enter to send, Shift+Enter for new line
       elements.messageInput.addEventListener("keydown", function (e) {
         if (e.key === "Enter" && !e.shiftKey) {

@@ -1,0 +1,247 @@
+{
+  "name": "Aspiramaq-Cases",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "aspiramaq-cases",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "a1b2c3d4-0001-4a10-9f00-aaaaaaaaaaaa",
+      "name": "When called - GET cases",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "webhookId": "c0a8f1e2-cases-4f10-9abc-aspiramaqcase"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "13-BsbvxU3bD8yFGnUArhtACpVd7pat9j_0QlLlPpRpo",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "historico",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0002-4a10-9f00-bbbbbbbbbbbb",
+      "name": "Ler Historico",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        448,
+        -112
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Y2LZELFEeUCjAV5U",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "13-BsbvxU3bD8yFGnUArhtACpVd7pat9j_0QlLlPpRpo",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Respostas ao formulário",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0003-4a10-9f00-cccccccccccc",
+      "name": "Ler Formulario",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        448,
+        112
+      ],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Y2LZELFEeUCjAV5U",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Marca a origem de cada linha vinda do histórico\nreturn $input.all().map((item, i) => ({\n  json: { ...item.json, _source: 'historico', _index: i }\n}));"
+      },
+      "id": "a1b2c3d4-0004-4a10-9f00-dddddddddddd",
+      "name": "Tag Historico",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Marca a origem de cada linha vinda do formulário de novos clientes\nreturn $input.all().map((item, i) => ({\n  json: { ...item.json, _source: 'formulario', _index: i }\n}));"
+      },
+      "id": "a1b2c3d4-0005-4a10-9f00-eeeeeeeeeeee",
+      "name": "Tag Formulario",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "append",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0006-4a10-9f00-ffffffffffff",
+      "name": "Juntar Abas",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        896,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normaliza linhas das duas abas para um formato único e leve para o front.\n// Procura uma chave por aproximação (case-insensitive, ignora acentos/espaços).\nfunction norm(s) {\n  return String(s == null ? '' : s)\n    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '')\n    .toLowerCase().replace(/[^a-z0-9]/g, '');\n}\nfunction pick(row, candidates) {\n  const keys = Object.keys(row);\n  for (const cand of candidates) {\n    const target = norm(cand);\n    const hit = keys.find((k) => norm(k) === target);\n    if (hit && String(row[hit]).trim() !== '') return String(row[hit]).trim();\n  }\n  return '';\n}\nfunction statusFrom(text) {\n  const t = norm(text);\n  if (!t) return 'desconhecido';\n  if (/(naoaprov|reprov|recus|negad|cancel|perd|nao)/.test(t)) return 'reprovado';\n  if (/(aprov|sim|ok|fechad|ganho|aceito|vendid)/.test(t)) return 'aprovado';\n  return 'pendente';\n}\n\nconst out = [];\nfor (const item of $input.all()) {\n  const row = item.json || {};\n  // Ignora linhas internas/vazias\n  const source = row._source || 'historico';\n  const clean = {};\n  for (const k of Object.keys(row)) {\n    if (k === '_source' || k === '_index' || k === 'row_number') continue;\n    clean[k] = row[k];\n  }\n  // Linha totalmente vazia? pula\n  const hasAny = Object.values(clean).some((v) => String(v).trim() !== '');\n  if (!hasAny) continue;\n\n  const cliente = pick(row, ['CLIENTE', 'Cliente', 'Empresa', 'Nome da empresa', 'Razao social']);\n  const po = pick(row, ['PÓ', 'PO', 'Pó', 'Material', 'Particulado', 'Tipo de pó']);\n  const equipamento = pick(row, ['EQUIPAMENTO', 'Equipamento', 'Coletor', 'Modelo']);\n  const motor = pick(row, ['MOTOR', 'Motor', 'Potencia', 'Potência']);\n  const filtro = pick(row, ['TECIDO', 'Tecido', 'Filtro', 'Midia', 'Mídia', 'Elemento filtrante']);\n  const aprovacaoTxt = pick(row, ['APROVAÇÃO', 'APROVACAO', 'Aprovação', 'Status', 'Situacao', 'Resultado']);\n  const observacoes = pick(row, ['OBSERVAÇÕES', 'OBSERVACOES', 'Observações', 'Observacao', 'Notas', 'Detalhes']);\n  const processo = pick(row, ['PROCESSO', 'Processo', 'Aplicacao', 'Aplicação', 'Maquina', 'Máquina']);\n\n  out.push({\n    json: {\n      source,\n      cliente,\n      po,\n      processo,\n      equipamento,\n      motor,\n      filtro,\n      aprovacao: aprovacaoTxt,\n      status: statusFrom(aprovacaoTxt),\n      observacoes,\n      fields: clean\n    }\n  });\n}\nreturn out;"
+      },
+      "id": "a1b2c3d4-0007-4a10-9f00-111111111111",
+      "name": "Normalizar Casos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0008-4a10-9f00-222222222222",
+      "name": "Retornar Casos",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When called - GET cases": {
+      "main": [
+        [
+          {
+            "node": "Ler Historico",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ler Formulario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler Historico": {
+      "main": [
+        [
+          {
+            "node": "Tag Historico",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler Formulario": {
+      "main": [
+        [
+          {
+            "node": "Tag Formulario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag Historico": {
+      "main": [
+        [
+          {
+            "node": "Juntar Abas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag Formulario": {
+      "main": [
+        [
+          {
+            "node": "Juntar Abas",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Juntar Abas": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Casos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Casos": {
+      "main": [
+        [
+          {
+            "node": "Retornar Casos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c0a8f1e2-cases-0001-9abc-aspiramaqcase",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "03d32a206f2d8840fce482e6c587726f18775bd9177e9401c00ca76d3086ad41"
+  },
+  "id": "aspiramaqCases01",
+  "tags": []
+}
