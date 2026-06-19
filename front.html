@@ -3489,10 +3489,6 @@
             options: ["Madeira", "MDF", "Metal", "Outro", "Não sei"],
           },
           {
-            q: "Esse pó é tratado como combustível/ATEX?",
-            options: ["Sim", "Não", "Não sei"],
-          },
-          {
             q: 'Quantas bocas e qual Ø de cada uma? (ex.: 3 de 5")',
           },
           {
@@ -3558,10 +3554,9 @@
         if (isCaseAnalysisMessage(userMessage)) {
           return stripInteractiveBlocks(response);
         }
-        const shouldForceForm = isCaseIntentMessage(userMessage);
-        return shouldForceForm && !hasInteractiveBlocks(response)
-          ? injectFallbackCaseForm(response)
-          : response;
+        // Coleta conversa-first: NAO forcar formulario. O agente decide se
+        // pergunta por texto (padrao) ou emite QUICK_FORM (opcional).
+        return response;
       }
 
       async function sendQuickReply(label) {
@@ -3609,11 +3604,6 @@
             id: "material",
             q: "É madeira maciça, MDF ou ambos?",
             options: ["Madeira maciça", "MDF", "Ambos", "Não sei"],
-          },
-          {
-            id: "atex",
-            q: "O cliente trata esse pó como combustível/ATEX?",
-            options: ["Sim, é ATEX", "Não é ATEX", "Não sei"],
           },
           {
             id: "bocas",
@@ -3751,11 +3741,6 @@
             id: "material",
             q: "Qual material orgânico?",
             options: ["Açúcar", "Farinha", "Grãos/ração", "Cacau", "Outro"],
-          },
-          {
-            id: "atex",
-            q: "O cliente trata esse pó como combustível/ATEX?",
-            options: ["Sim, é ATEX", "Não é ATEX", "Não sei"],
           },
           {
             id: "bocas",
@@ -3901,11 +3886,6 @@
           },
           { id: "material", q: "Qual o material do particulado?" },
           {
-            id: "atex",
-            q: "Existe risco combustível/ATEX?",
-            options: ["Sim", "Não", "Não sei"],
-          },
-          {
             id: "bocas",
             q: "Quantas bocas/pontos, diâmetro de cada um e simultaneidade?",
           },
@@ -3984,7 +3964,7 @@
             {
               id: "coletor",
               q: "Qual o tipo de coletor atual?",
-              options: ["Mangas", "Cartucho/plissado", "Ciclone", "Não sei"],
+              options: ["Mangas", "Cartucho", "Plissado/zigzag", "Ciclone", "Não sei"],
             },
             {
               id: "processo",
@@ -4087,20 +4067,11 @@
       }
 
       function shouldOpenGuidedCaseIntake(message) {
-        const text = String(message || "")
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
-        const wantsCaseHelp = [
-          "ajuda com um caso",
-          "ajuda com caso",
-          "caso novo",
-          "caso de cliente",
-          "cliente novo",
-          "preciso dimensionar",
-          "dimensionamento",
-        ].some((term) => text.includes(term));
-        return wantsCaseHelp && !hasSegmentHint(text);
+        // Coleta conversa-first: nao abrir formulario automaticamente.
+        // O agente conduz por conversa de texto livre. O formulario guiado
+        // continua disponivel apenas via acao explicita (botao "Caso novo").
+        void message;
+        return false;
       }
 
       function renderGuidedCaseForm(intent) {
@@ -4463,21 +4434,38 @@
           }
 
           // Extract quick form block: <!--QUICK_FORM:[{...}]-->
+          // Conversa-first: em mensagens normais do agente NAO renderizamos
+          // formulario interativo. As perguntas viram uma lista de texto e o
+          // usuario responde digitando no chat. O formulario guiado so existe
+          // no fluxo do botao "Ajuda com caso novo" (renderGuidedCaseForm).
           const qfMatch = rawContent.match(
             /<!--\s*QUICK_FORM\s*:\s*(\[[\s\S]*?\])\s*-->/i,
           );
           if (qfMatch) {
+            let questionsText = "";
             try {
               const parsed = JSON.parse(qfMatch[1]);
               if (Array.isArray(parsed) && parsed.length > 0) {
-                quickForm = parsed.filter(
+                const items = parsed.filter(
                   (x) => x && typeof x === "object" && typeof x.q === "string",
                 );
+                questionsText = items
+                  .map((item, idx) => {
+                    const opts =
+                      Array.isArray(item.options) && item.options.length > 0
+                        ? ` _(${item.options.join(" · ")})_`
+                        : "";
+                    return `${idx + 1}. ${item.q}${opts}`;
+                  })
+                  .join("\n");
               }
             } catch (e) {
               console.warn("Quick form parse failed:", e);
             }
             rawContent = rawContent.replace(qfMatch[0], "").trim();
+            if (questionsText) {
+              rawContent = `${rawContent}\n\n${questionsText}`.trim();
+            }
           }
 
           content.innerHTML = marked.parse(rawContent);
@@ -4497,96 +4485,9 @@
             link.setAttribute("rel", "noopener noreferrer");
           });
 
-          // Render quick form (multi-question, single submit)
-          if (quickForm && quickForm.length > 0) {
-            const formDiv = document.createElement("div");
-            formDiv.className = "quick-form";
-
-            const state = quickForm.map((item) => ({
-              q: item.q,
-              value: "",
-              options: Array.isArray(item.options) ? item.options : null,
-            }));
-
-            quickForm.forEach((item, idx) => {
-              const itemDiv = document.createElement("div");
-              itemDiv.className = "qf-item";
-
-              const qLabel = document.createElement("div");
-              qLabel.className = "qf-q";
-              qLabel.textContent = `${idx + 1}. ${item.q}`;
-              itemDiv.appendChild(qLabel);
-
-              const textInput = document.createElement("input");
-              textInput.type = "text";
-              textInput.className = "qf-input";
-              textInput.placeholder =
-                item.placeholder || "Digite a resposta ou clique numa opção";
-              textInput.addEventListener("input", (e) => {
-                state[idx].value = e.target.value;
-                // Deselect chips if user types something different
-                if (state[idx].options) {
-                  itemDiv.querySelectorAll(".quick-reply-chip").forEach((c) => {
-                    if (c.textContent !== e.target.value) {
-                      c.classList.remove("selected");
-                    }
-                  });
-                }
-              });
-              itemDiv.appendChild(textInput);
-
-              if (state[idx].options) {
-                const chipsDiv = document.createElement("div");
-                chipsDiv.className = "qf-chips";
-                state[idx].options.forEach((opt) => {
-                  const chip = document.createElement("button");
-                  chip.type = "button";
-                  chip.className = "quick-reply-chip";
-                  chip.textContent = opt;
-                  chip.onclick = () => {
-                    chipsDiv
-                      .querySelectorAll(".quick-reply-chip")
-                      .forEach((c) => c.classList.remove("selected"));
-                    chip.classList.add("selected");
-                    state[idx].value = opt;
-                    textInput.value = opt;
-                  };
-                  chipsDiv.appendChild(chip);
-                });
-                itemDiv.appendChild(chipsDiv);
-              }
-
-              formDiv.appendChild(itemDiv);
-            });
-
-            const submitBtn = document.createElement("button");
-            submitBtn.type = "button";
-            submitBtn.className = "qf-submit";
-            submitBtn.textContent = "Enviar respostas";
-            submitBtn.onclick = () => {
-              const lines = state
-                .map((s, i) => {
-                  const v = (s.value || "").trim() || "Não sei";
-                  return `${i + 1}. ${s.q}\n   → ${v}`;
-                })
-                .join("\n\n");
-              const compiled = `Respostas do formulário para continuar o caso técnico. Use estas respostas junto com o histórico da conversa, filtre casos reais coerentes no histórico e faça apenas perguntas complementares se ainda faltar dado crítico:\n\n${lines}`;
-              // Lock the form after submit
-              formDiv
-                .querySelectorAll("input, button")
-                .forEach((el) => (el.disabled = true));
-              submitBtn.textContent = "Enviado";
-              if (typeof sendQuickReply === "function") {
-                sendQuickReply(compiled);
-              } else {
-                elements.messageInput.value = compiled;
-                elements.inputForm.requestSubmit();
-              }
-            };
-            formDiv.appendChild(submitBtn);
-
-            content.appendChild(formDiv);
-          }
+          // Render quick form: desativado em mensagens normais (conversa-first).
+          // `quickForm` permanece null aqui; o formulario interativo so e
+          // construido pelo fluxo do botao "Ajuda com caso novo".
 
           // Render single quick reply chips (only if no form)
           if (!quickForm && quickReplies && quickReplies.length > 0) {

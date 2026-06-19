@@ -112,6 +112,26 @@ Aspiradores, coletores de pó industriais e exaustores. *Especificações detalh
 
 \[BUSCA: portfolio, catalogo, mídias, mangas, plissados, sarja, filtros, polipropileno, poliéster, ptfe, colmeia, equipamentos, visão geral\]
 
+### 2.4 Linhas de coletor e exclusividade de filtro
+
+> **Condição NOVA registrada a pedido da ASPIRAMAQ.** O elemento filtrante é **exclusivo da família de coletor correspondente** — nunca misturar famílias. Detalhamento completo no arquivo dedicado `linhas_coletor_exclusividade.md`. Os códigos comerciais das linhas de coletor ainda não constam no catálogo desta base — marcados `[REVISAR COM ASPIRAMAQ]`.
+
+| Família de coletor | Elemento filtrante exclusivo | NUNCA usar |
+| :---- | :---- | :---- |
+| **Cartucho** | Filtro de cartucho (código `[REVISAR COM ASPIRAMAQ]`) | plissado zigzag, manga, colmeia |
+| **Zigzag (plissado)** | MID-PLI-240 (Plissado UNO PES 240 Membrana PTFE) | cartucho, manga, colmeia |
+| **Mangas** | MID-PES-350-PTFE, MID-PES-400, MID-PP-550, MID-PES-210-SAR, MID-PES-630-SAR | plissado, cartucho, colmeia |
+| **Metálico / Colmeia** | FM-COLM-595 | mangas, cartucho, plissado |
+
+**As duas exclusividades críticas:**
+
+1. **Filtro de cartucho ↔ coletor de cartucho.** O filtro de cartucho **só** funciona em coletor de cartucho.
+2. **Filtro plissado ↔ linha "zigzag".** O plissado MID-PLI-240 é **exclusivo da linha zigzag**.
+
+> ⚠️ **Cartucho ≠ Plissado.** São famílias distintas e **não intercambiáveis**, mesmo sendo ambos elementos pregueados rígidos. Cartucho pertence à linha de cartucho; plissado pertence à linha zigzag.
+
+\[BUSCA: coletor, cartucho, plissado, zigzag, manga, colmeia, exclusividade, compatibilidade, família, linha de coletor, elemento filtrante\]
+
 ---
 
 ## 3\. CATÁLOGO TÉCNICO DAS MÍDIAS FILTRANTES
@@ -439,7 +459,7 @@ Use esta matriz como **primeiro filtro** quando o cliente descrever a aplicaçã
 | **Pigmentos / asfalto / fundição de bateria / jateamento / grafite** | MID-PES-350-PTFE | PTFE é o diferencial em pós aglomerantes/higroscópicos. |
 | **Indústria química / fertilizantes / cal** | MID-PP-550 (se temperatura ≤ 90°C contínua) | Polipropileno tem excelente resistência química. **Crítico: validar temperatura.** |
 | **Alimentícia (farinha, leite, açúcar, detergente)** | MID-PP-550 (se temperatura ≤ 90°C) | PP é a indicação clássica para alimentícia em baixa temperatura. |
-| **Pó ultrafino, gases de combustão, alta exigência de eficiência** | MID-PLI-240 (Plissado UNO PES 240 com Membrana PTFE) | 99,99% de eficiência para ≥0,5 µm. Limite 120°C contínua. |
+| **Pó ultrafino, gases de combustão, alta exigência de eficiência** | MID-PLI-240 (Plissado UNO PES 240 com Membrana PTFE) | 99,99% de eficiência para ≥0,5 µm. Limite 120°C contínua. **Exclusivo da linha "zigzag" (T09.1)** — só em coletor zigzag. |
 | **Cozinha industrial (coifas)** | FM-COLM-595 (Filtro Colmeia) | Pré-filtragem; nunca como filtro principal de alta eficiência. |
 | **Névoa de óleo industrial** | FM-COLM-595 \+ filtros complementares | Colmeia faz captação primária; eficiência fina exige etapa adicional. |
 | **Pré-filtragem geral / ventilação / exaustão / ar externo** | FM-COLM-595 | Classe G1 / MERV1. |
@@ -552,7 +572,11 @@ Após coletar os dados, o agente deve verificar **coerência interna** antes de 
 | T05 | Plissado UNO PES 240 só pode ser recomendado se T ≤ 120°C contínua | Bloquear se T \> 120°C |
 | T06 | Filtro Colmeia (G1/MERV1) **não pode** ser único filtro em aplicação que exija eficiência fina | Sinalizar e exigir filtro complementar |
 | T07 | Se o cliente exige eficiência submicrométrica e a mídia escolhida não é o Plissado UNO PES 240 nem mídia equivalente, sinalizar gap | Reavaliar recomendação |
-| T08 | Atmosfera explosiva (ATEX/NR-20) declarada → projeto exige análise especializada de aterramento, antiestática, etc. | **BLOQUEAR** e encaminhar ao Hiroshi |
+| T08 | **ATEX por exceção.** Pó combustível conhecido (lista §8.1) ou histórico marcando ATEX → **ALERTAR** (não bloqueia). ATEX **confirmado** pelo vendedor/cliente → **BLOQUEAR** e encaminhar ao Hiroshi (análise de aterramento, antiestática). | Alertar se suspeita; bloquear só se confirmado |
+| T09 | **Exclusividade de família:** coletor de **cartucho** usa só filtro de cartucho; **mangas** usa só manga; **metálico/colmeia** usa só FM-COLM-595. | **BLOQUEAR** e propor o elemento da família correta |
+| T09.1 | Filtro **plissado MID-PLI-240** é **exclusivo da linha "zigzag"** — proibido em cartucho, mangas ou metálico. | **BLOQUEAR** — especificar a linha zigzag ou trocar para o elemento da família do coletor |
+| T09.2 | Filtro de **cartucho** é **exclusivo do coletor de cartucho** — proibido em zigzag, mangas ou metálico. | **BLOQUEAR** — usar elemento da família correspondente |
+| T11 | Não há código oficial de filtro de cartucho na base — não inventar ID de cartucho. | **BLOQUEAR** e pedir validação (Hiroshi/ASPIRAMAQ) |
 
 ### 7.3 Regras comerciais
 
@@ -580,7 +604,12 @@ O agente bloqueia se **qualquer um** destes dados estiver ausente:
 - ❌ **Processo gerador** do particulado não identificado.  
 - ❌ **Umidade da corrente** desconhecida em aplicações onde é decisiva (acima de 80°C, particulado higroscópico, ou processos úmidos).  
 - ❌ **Presença de ácidos/álcalis** não verificada quando o segmento sugere risco (química, fertilizantes, fundição de bateria, asfalto).  
-- ❌ **Risco de atmosfera explosiva** não esclarecido em segmentos com pó orgânico (alimentícia, cacau, fumo, plástico, alumínio fino, grãos).
+
+> **ATEX NÃO é bloqueio por dado faltante (regra por exceção — T08).** Não trave o atendimento só porque o ATEX não foi informado. Em vez disso:
+>
+> - **Pó combustível conhecido** (madeira, MDF, açúcar, farinha, cacau, fumo, plástico, alumínio fino, grãos, ração) **ou** histórico marcando ATEX → **emita um ALERTA** (“esse pó costuma ser tratado como combustível; confirme com o cliente se há exigência ATEX/NR-20”) e **siga** com a recomendação.
+> - ATEX **confirmado** (cliente exige ou vendedor marca como ATEX) → aí sim **BLOQUEAR + escalar Hiroshi** (T08).
+> - Pó não-combustível (ex.: cavaco de aço seco) → **sem alerta** ATEX.
 
 ### 8.2 Bloqueios por inconsistência
 
