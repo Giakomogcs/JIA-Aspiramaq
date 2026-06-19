@@ -154,16 +154,16 @@ flowchart LR
 
 ## Entidades de Dados
 
-| Entidade | Onde vive | Conteúdo |
-|----------|-----------|----------|
-| Mensagens de chat | PostgreSQL (Postgres Chat Memory) | Turnos por `sessionId` |
-| Sessões | PostgreSQL | Sessões de conversa, listagem/exclusão |
-| Vetores de conhecimento | PostgreSQL (pgvector) | Chunks + embeddings dos documentos |
-| Metadados de documentos | PostgreSQL | Arquivos indexados, origem no Drive |
-| Linhas tabulares (Excel/CSV) | PostgreSQL | Dados de planilhas para consulta estruturada |
-| Casos reais | Google Sheets | Abas `historico` e `Respostas ao formulário` |
-| Documentos-fonte | Google Drive | PDFs/Docs/planilhas originais |
-| Usuários / papéis | PostgreSQL (auth + RPCs) | Admin/viewer via `migrations/*.sql` |
+| Entidade                     | Onde vive                         | Conteúdo                                     |
+| ---------------------------- | --------------------------------- | -------------------------------------------- |
+| Mensagens de chat            | PostgreSQL (Postgres Chat Memory) | Turnos por `sessionId`                       |
+| Sessões                      | PostgreSQL                        | Sessões de conversa, listagem/exclusão       |
+| Vetores de conhecimento      | PostgreSQL (pgvector)             | Chunks + embeddings dos documentos           |
+| Metadados de documentos      | PostgreSQL                        | Arquivos indexados, origem no Drive          |
+| Linhas tabulares (Excel/CSV) | PostgreSQL                        | Dados de planilhas para consulta estruturada |
+| Casos reais                  | Google Sheets                     | Abas `historico` e `Respostas ao formulário` |
+| Documentos-fonte             | Google Drive                      | PDFs/Docs/planilhas originais                |
+| Usuários / papéis            | PostgreSQL (auth + RPCs)          | Admin/viewer via `migrations/*.sql`          |
 
 ## Autenticação e Autorização
 
@@ -178,26 +178,31 @@ As RPCs verificam o papel do chamador antes de qualquer mutação, evitando esca
 ## Decisões de Arquitetura (ADRs)
 
 ### ADR-001 — Orquestração por n8n em vez de backend dedicado
+
 **Contexto:** equipe pequena, necessidade de iterar rápido sobre integrações (Azure, Google, Supabase).
 **Decisão:** usar n8n como camada de orquestração; lógica em workflows versionados como JSON.
 **Consequências:** time-to-market baixo e integrações visuais; em troca, lógica acoplada ao n8n e necessidade de sincronizar prompt/front manualmente para dentro dos JSONs.
 
 ### ADR-002 — RAG com pgvector no Supabase
+
 **Contexto:** conhecimento técnico extenso (catálogo, mídias, casos) que não cabe no prompt.
 **Decisão:** indexar documentos via embeddings Azure OpenAI no `pgvector`, recuperando trechos sob demanda.
 **Consequências:** respostas ancoradas em fontes reais; exige pipeline de ingestão e expiração de documentos.
 
 ### ADR-003 — Coleta conversacional em vez de formulários obrigatórios
+
 **Contexto:** formulários multi-etapa engessavam a conversa e geravam abandono.
 **Decisão:** o agente pergunta por **texto** apenas o que falta (1–3 perguntas); o formulário guiado só aparece via botão "Ajuda com caso novo".
 **Consequências:** experiência mais natural; exige roteamento por intenção bem definido no prompt.
 
 ### ADR-004 — ATEX por exceção
+
 **Contexto:** perguntar ATEX a todos atritava cenários sem risco.
 **Decisão:** não perguntar ATEX por padrão; alertar automaticamente quando o material/histórico indicar pó combustível e bloquear/escalar apenas em risco confirmado.
 **Consequências:** menos fricção sem perder segurança; depende de lista de materiais combustíveis e marcação no histórico.
 
 ### ADR-005 — Calculadora determinística como ferramenta
+
 **Contexto:** cálculos aeráulicos não podem depender de "alucinação" do LLM.
 **Decisão:** isolar vazão, velocidade, perda de carga e motor em código JavaScript determinístico exposto como ferramenta do agente.
 **Consequências:** números reprodutíveis e auditáveis; o LLM interpreta, não calcula.

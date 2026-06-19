@@ -12,18 +12,18 @@ O que **não** faz: não fecha orçamento, não emite proposta comercial e não 
 
 ## Stack
 
-| Camada | Tecnologia | Observação |
-|--------|-----------|-----------|
-| Orquestração de fluxos | n8n | Workflows em `workspaces/*.json` |
-| LLM | Azure OpenAI (Chat) | Nó `Azure OpenAI Chat Model` |
-| Embeddings | Azure OpenAI (Embeddings) | Indexação e busca semântica |
-| Vector store / RAG | Supabase (pgvector) | Nó `search_knowledge_base` |
-| Banco de dados | PostgreSQL (Supabase) | Memória de chat, sessões, metadados de documentos, auth |
-| Histórico de casos | Google Sheets | Abas `historico` e `Respostas ao formulário` |
-| Armazenamento de documentos | Google Drive | Ingestão para o RAG |
-| Frontend | HTML + JavaScript (vanilla) | Arquivo único `front.html` servido pelo nó HTML |
-| Auth | Supabase Auth + RPCs `SECURITY DEFINER` | Migrations `migrations/*.sql` |
-| Cálculo de dimensionamento | JavaScript determinístico | `tools/calculadora_dimensionamento.js` |
+| Camada                      | Tecnologia                              | Observação                                              |
+| --------------------------- | --------------------------------------- | ------------------------------------------------------- |
+| Orquestração de fluxos      | n8n                                     | Workflows em `workspaces/*.json`                        |
+| LLM                         | Azure OpenAI (Chat)                     | Nó `Azure OpenAI Chat Model`                            |
+| Embeddings                  | Azure OpenAI (Embeddings)               | Indexação e busca semântica                             |
+| Vector store / RAG          | Supabase (pgvector)                     | Nó `search_knowledge_base`                              |
+| Banco de dados              | PostgreSQL (Supabase)                   | Memória de chat, sessões, metadados de documentos, auth |
+| Histórico de casos          | Google Sheets                           | Abas `historico` e `Respostas ao formulário`            |
+| Armazenamento de documentos | Google Drive                            | Ingestão para o RAG                                     |
+| Frontend                    | HTML + JavaScript (vanilla)             | Arquivo único `front.html` servido pelo nó HTML         |
+| Auth                        | Supabase Auth + RPCs `SECURITY DEFINER` | Migrations `migrations/*.sql`                           |
+| Cálculo de dimensionamento  | JavaScript determinístico               | `tools/calculadora_dimensionamento.js`                  |
 
 ## Pré-requisitos
 
@@ -68,41 +68,41 @@ Credenciais sensíveis (Azure OpenAI, Supabase, Google) vivem nas **credenciais 
 
 ## Componentes
 
-| Componente | Arquivo | Responsabilidade |
-|-----------|---------|------------------|
-| Agente RAG + Chat | [workspaces/Aspiramaq-Agent-IA-copy.json](workspaces/Aspiramaq-Agent-IA-copy.json) | Webhook de chat, agente LLM, ferramentas (RAG, planilha, calculadora), memória |
-| Frontend | [front.html](front.html) + [workspaces/Aspiramaq-Front.json](workspaces/Aspiramaq-Front.json) | UI de chat, formulário guiado, modais de casos/documentos |
-| Ingestão RAG | [workspaces/Aspiramaq-RAG.json](workspaces/Aspiramaq-RAG.json) | Download Drive, extração (PDF/Excel/CSV/Docs), chunking, embeddings, setup de tabelas, expiração |
-| Casos (histórico) | [workspaces/Aspiramaq-Cases.json](workspaces/Aspiramaq-Cases.json) | Lê 2 abas do Google Sheets e normaliza casos para o front |
-| Sessões — listar | [workspaces/Aspiramaq-Chat-GET-Sessions.json](workspaces/Aspiramaq-Chat-GET-Sessions.json) | `GET /aspiramaq-sessions` |
-| Sessões — histórico | [workspaces/Aspiramaq-Chat-GET-History.json](workspaces/Aspiramaq-Chat-GET-History.json) | `GET /aspiramaq-history` |
-| Sessões — excluir | [workspaces/Aspiramaq-Chat-DELETE-Session.json](workspaces/Aspiramaq-Chat-DELETE-Session.json) | `DELETE /aspiramaq-session` |
-| Gestão de documentos | [workspaces/Aspiramaq-Docs-Manager.json](workspaces/Aspiramaq-Docs-Manager.json) | Listar/excluir documentos do RAG + health check |
-| Sub-fluxo planilha | [workspaces/[Aspiramaq] Sub-fluxo_ Consultar Planilha Inteligente.json](workspaces/%5BAspiramaq%5D%20Sub-fluxo_%20Consultar%20Planilha%20Inteligente.json) | Busca por substring de 1 palavra no histórico |
-| Calculadora | [tools/calculadora_dimensionamento.js](tools/calculadora_dimensionamento.js) | Vazão, velocidade, Ø de tronco, perda de carga, motor sugerido, coerência modelo↔motor |
-| Base de conhecimento | [base_conhecimento_aspiramaq.md](base_conhecimento_aspiramaq.md) / [RAG/base_conhecimento_aspiramaq.md](RAG/base_conhecimento_aspiramaq.md) | Fonte do RAG (2 cópias mantidas idênticas) |
-| Exclusividades de filtro | [RAG/linhas_coletor_exclusividade.md](RAG/linhas_coletor_exclusividade.md) | Regras cartucho↔cartucho e plissado↔zigzag |
-| System prompt | [prompt_v2.md](prompt_v2.md) | Mensagem de sistema do agente |
+| Componente               | Arquivo                                                                                                                                                     | Responsabilidade                                                                                 |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Agente RAG + Chat        | [workspaces/Aspiramaq-Agent-IA-copy.json](workspaces/Aspiramaq-Agent-IA-copy.json)                                                                          | Webhook de chat, agente LLM, ferramentas (RAG, planilha, calculadora), memória                   |
+| Frontend                 | [front.html](front.html) + [workspaces/Aspiramaq-Front.json](workspaces/Aspiramaq-Front.json)                                                               | UI de chat, formulário guiado, modais de casos/documentos                                        |
+| Ingestão RAG             | [workspaces/Aspiramaq-RAG.json](workspaces/Aspiramaq-RAG.json)                                                                                              | Download Drive, extração (PDF/Excel/CSV/Docs), chunking, embeddings, setup de tabelas, expiração |
+| Casos (histórico)        | [workspaces/Aspiramaq-Cases.json](workspaces/Aspiramaq-Cases.json)                                                                                          | Lê 2 abas do Google Sheets e normaliza casos para o front                                        |
+| Sessões — listar         | [workspaces/Aspiramaq-Chat-GET-Sessions.json](workspaces/Aspiramaq-Chat-GET-Sessions.json)                                                                  | `GET /aspiramaq-sessions`                                                                        |
+| Sessões — histórico      | [workspaces/Aspiramaq-Chat-GET-History.json](workspaces/Aspiramaq-Chat-GET-History.json)                                                                    | `GET /aspiramaq-history`                                                                         |
+| Sessões — excluir        | [workspaces/Aspiramaq-Chat-DELETE-Session.json](workspaces/Aspiramaq-Chat-DELETE-Session.json)                                                              | `DELETE /aspiramaq-session`                                                                      |
+| Gestão de documentos     | [workspaces/Aspiramaq-Docs-Manager.json](workspaces/Aspiramaq-Docs-Manager.json)                                                                            | Listar/excluir documentos do RAG + health check                                                  |
+| Sub-fluxo planilha       | [workspaces/[Aspiramaq] Sub-fluxo\_ Consultar Planilha Inteligente.json](workspaces/%5BAspiramaq%5D%20Sub-fluxo_%20Consultar%20Planilha%20Inteligente.json) | Busca por substring de 1 palavra no histórico                                                    |
+| Calculadora              | [tools/calculadora_dimensionamento.js](tools/calculadora_dimensionamento.js)                                                                                | Vazão, velocidade, Ø de tronco, perda de carga, motor sugerido, coerência modelo↔motor           |
+| Base de conhecimento     | [base_conhecimento_aspiramaq.md](base_conhecimento_aspiramaq.md) / [RAG/base_conhecimento_aspiramaq.md](RAG/base_conhecimento_aspiramaq.md)                 | Fonte do RAG (2 cópias mantidas idênticas)                                                       |
+| Exclusividades de filtro | [RAG/linhas_coletor_exclusividade.md](RAG/linhas_coletor_exclusividade.md)                                                                                  | Regras cartucho↔cartucho e plissado↔zigzag                                                       |
+| System prompt            | [prompt_v2.md](prompt_v2.md)                                                                                                                                | Mensagem de sistema do agente                                                                    |
 
 ## Endpoints (webhooks n8n)
 
 Todos sob o prefixo `${API_BASE}` (`/webhook`).
 
-| Método | Rota | Workflow | Descrição |
-|--------|------|----------|-----------|
-| POST | `/aspiramaq-AgentRag` | Agent-IA | Mensagem de chat → resposta do agente |
-| POST | `/aspiramaq-prune-history` | Agent-IA | Poda histórico ao editar mensagem |
-| GET | `/aspiramaq-sessions` | Chat-GET-Sessions | Lista sessões |
-| GET | `/aspiramaq-history` | Chat-GET-History | Histórico de uma sessão |
-| DELETE | `/aspiramaq-session` | Chat-DELETE-Session | Exclui sessão |
-| GET | `/aspiramaq-cases` | Cases | Casos reais (histórico do Sheets) |
-| POST | `/aspiramaq-index-drive` | RAG | Indexa arquivo do Drive no RAG |
-| POST | `/aspiramaq-DatabaseSetup` | RAG | Cria/reseta tabelas e funções |
-| POST | `/aspiramaq-docs-reprocess` | RAG | Reprocessa documentos |
-| GET | `/aspiramaq-docs-list` | Docs-Manager | Lista documentos indexados |
-| POST | `/aspiramaq-docs-delete` | Docs-Manager | Exclui documentos (banco + Drive) |
-| GET | `/aspiramaq_health` | Docs-Manager | Health check |
-| POST | `/aspiramaq-chat` | Front | Serve o `front.html` |
+| Método | Rota                        | Workflow            | Descrição                             |
+| ------ | --------------------------- | ------------------- | ------------------------------------- |
+| POST   | `/aspiramaq-AgentRag`       | Agent-IA            | Mensagem de chat → resposta do agente |
+| POST   | `/aspiramaq-prune-history`  | Agent-IA            | Poda histórico ao editar mensagem     |
+| GET    | `/aspiramaq-sessions`       | Chat-GET-Sessions   | Lista sessões                         |
+| GET    | `/aspiramaq-history`        | Chat-GET-History    | Histórico de uma sessão               |
+| DELETE | `/aspiramaq-session`        | Chat-DELETE-Session | Exclui sessão                         |
+| GET    | `/aspiramaq-cases`          | Cases               | Casos reais (histórico do Sheets)     |
+| POST   | `/aspiramaq-index-drive`    | RAG                 | Indexa arquivo do Drive no RAG        |
+| POST   | `/aspiramaq-DatabaseSetup`  | RAG                 | Cria/reseta tabelas e funções         |
+| POST   | `/aspiramaq-docs-reprocess` | RAG                 | Reprocessa documentos                 |
+| GET    | `/aspiramaq-docs-list`      | Docs-Manager        | Lista documentos indexados            |
+| POST   | `/aspiramaq-docs-delete`    | Docs-Manager        | Exclui documentos (banco + Drive)     |
+| GET    | `/aspiramaq_health`         | Docs-Manager        | Health check                          |
+| POST   | `/aspiramaq-chat`           | Front               | Serve o `front.html`                  |
 
 ## Fluxo de fases do agente
 
