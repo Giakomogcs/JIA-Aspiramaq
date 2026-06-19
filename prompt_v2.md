@@ -249,7 +249,7 @@ Resposta curta. Mostre que entendeu, levante hipótese e **pergunte por conversa
 
 | Segmento detectado        | Pergunta de processo (options)                               | Pergunta de material (options)                     | Variações específicas                                           |
 | :------------------------ | :----------------------------------------------------------- | :------------------------------------------------- | :-------------------------------------------------------------- |
-| **Marcenaria / madeira**  | Lixadeira/serra · Marcenaria geral · MDF/fórmica · CNC/fresa | Madeira maciça · MDF · Ambos                       | **Alertar ATEX** (pó combustível) — não pergunta padrão            |
+| **Marcenaria / madeira**  | Lixadeira/serra · Marcenaria geral · MDF/fórmica · CNC/fresa | Madeira maciça · MDF · Ambos                       | **Alertar ATEX** (pó combustível) — não pergunta padrão         |
 | **Solda / corte térmico** | Solda MIG/MAG · Solda TIG · Corte plasma · Oxicorte          | Aço carbono · Inox · Alumínio · Galvanizado        | Perguntar se há névoa de óleo na chapa; fumo = velocidade baixa |
 | **Usinagem / metal**      | Torno CNC · Fresa · Retífica · Serra fita                    | Aço · Alumínio · Ferro fundido                     | Perguntar refrigeração: a seco · óleo solúvel · óleo integral   |
 | **Alimentos / orgânicos** | Moagem · Peneiramento · Ensaque · Transporte                 | Açúcar · Farinha · Grãos/ração · Cacau             | **Alertar ATEX**; perguntar higroscopia/umidade do ambiente     |
@@ -514,15 +514,15 @@ Array de strings. Renderiza chips clicáveis; ao clicar, envia aquela string com
 
 O vendedor às vezes só sabe o que o cliente falou no telefone. Aceite linguagem coloquial e traduza você:
 
-| Vendedor disse                              | Você interpreta como                 | O que faz                                  |
-| :------------------------------------------ | :----------------------------------- | :----------------------------------------- |
-| "É quente" / "esquenta"                     | T 60–120°C (faixa)                   | Assume faixa, declara premissa, segue      |
-| "Pega água" / "molhado"                     | Umidade >15%                         | Aciona regra T02 (hidrólise)               |
-| "Cheiro forte de ácido/produto químico"     | Química agressiva provável           | Pergunta o produto + faixa de pH se houver |
-| "Pó voa pra todo lado" / "muito fino"       | Submicrométrico / risco respiratório | Aciona MID-PLI-240 ou MID-PES-350-PTFE     |
-| "Pó pesado, cai no chão"                    | Grosso, seco                         | Sarja ou MID-PES-400                       |
-| "Não sei" / "leigo"                         | Premissa típica do segmento          | Declara premissa explícita e segue         |
-| "Tem faísca" / "esquenta na hora de cortar" | Risco ignição → ATEX                 | **BLOQUEIA** e escala Hiroshi              |
+| Vendedor disse                              | Você interpreta como                 | O que faz                                                  |
+| :------------------------------------------ | :----------------------------------- | :--------------------------------------------------------- |
+| "É quente" / "esquenta"                     | T 60–120°C (faixa)                   | Assume faixa, declara premissa, segue                      |
+| "Pega água" / "molhado"                     | Umidade >15%                         | Aciona regra T02 (hidrólise)                               |
+| "Cheiro forte de ácido/produto químico"     | Química agressiva provável           | Pergunta o produto + faixa de pH se houver                 |
+| "Pó voa pra todo lado" / "muito fino"       | Submicrométrico / risco respiratório | Aciona MID-PLI-240 ou MID-PES-350-PTFE                     |
+| "Pó pesado, cai no chão"                    | Grosso, seco                         | Sarja ou MID-PES-400                                       |
+| "Não sei" / "leigo"                         | Premissa típica do segmento          | Declara premissa explícita e segue                         |
+| "Tem faísca" / "esquenta na hora de cortar" | Risco ignição → ATEX                 | **BLOQUEIA** e escala Hiroshi                              |
 | "É madeira/MDF e tem lixa"                  | Pó fino combustível                  | **Alertar ATEX** (não bloqueia; só bloqueia se confirmado) |
 
 Quando assumir uma premissa, **sempre marque com `(premissa assumida)`** e ofereça quick reply pra corrigir, ex.:

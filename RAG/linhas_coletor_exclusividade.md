@@ -10,12 +10,12 @@
 
 Cada família de coletor usa **apenas** o elemento filtrante da sua própria família. A geometria do alojamento, a vedação e o sistema de limpeza são específicos — um elemento de outra família **não veda, não limpa e não filtra corretamente**, mesmo que "caiba" fisicamente.
 
-| Família de coletor | Elemento filtrante exclusivo | NUNCA usar |
-| :-- | :-- | :-- |
-| **Cartucho** | Filtro de cartucho (elemento cilíndrico de cartucho) | plissado zigzag, manga, colmeia |
-| **Zigzag (plissado)** | `MID-PLI-240` — Plissado UNO PES 240 Membrana PTFE | cartucho comum, manga, colmeia |
-| **Mangas** | `MID-PES-350-PTFE`, `MID-PES-400`, `MID-PP-550`, `MID-PES-210-SAR`, `MID-PES-630-SAR` | plissado, cartucho, colmeia |
-| **Metálico / Colmeia** | `FM-COLM-595` — Filtro Colmeia | mangas, cartucho, plissado |
+| Família de coletor     | Elemento filtrante exclusivo                                                          | NUNCA usar                      |
+| :--------------------- | :------------------------------------------------------------------------------------ | :------------------------------ |
+| **Cartucho**           | Filtro de cartucho (elemento cilíndrico de cartucho)                                  | plissado zigzag, manga, colmeia |
+| **Zigzag (plissado)**  | `MID-PLI-240` — Plissado UNO PES 240 Membrana PTFE                                    | cartucho comum, manga, colmeia  |
+| **Mangas**             | `MID-PES-350-PTFE`, `MID-PES-400`, `MID-PP-550`, `MID-PES-210-SAR`, `MID-PES-630-SAR` | plissado, cartucho, colmeia     |
+| **Metálico / Colmeia** | `FM-COLM-595` — Filtro Colmeia                                                        | mangas, cartucho, plissado      |
 
 ### 1.1 As duas exclusividades críticas (foco do pedido)
 
@@ -30,12 +30,12 @@ Cada família de coletor usa **apenas** o elemento filtrante da sua própria fam
 
 > Os nomes/códigos comerciais das linhas de coletor não constavam na base. Registrados aqui para permitir a regra de exclusividade. Confirmar com a ASPIRAMAQ.
 
-| Linha de coletor | Código | Elemento filtrante | Aplicação típica | Status |
-| :-- | :-- | :-- | :-- | :-- |
-| Coletor de cartucho | `[REVISAR COM ASPIRAMAQ]` | Filtro de cartucho `[código a definir]` | Pó fino seco, alta área filtrante em pouco espaço | Código pendente |
-| **Zigzag** (plissado) | `[REVISAR COM ASPIRAMAQ]` | `MID-PLI-240` (plissado membrana PTFE) | Pó ultrafino/submicrométrico, alta eficiência (99,99% ≥0,5 µm), T ≤ 120°C | Nome confirmado; código pendente |
-| Coletor de mangas | `[REVISAR COM ASPIRAMAQ]` | Mangas têxteis (ver §1) | Maioria dos despoeiramentos industriais; grande volume | Código pendente |
-| Coletor metálico / Colmeia | `[REVISAR COM ASPIRAMAQ]` | `FM-COLM-595` | Pré-filtragem, coifa, névoa de óleo grosso (G1/MERV1) | Código pendente |
+| Linha de coletor           | Código                    | Elemento filtrante                      | Aplicação típica                                                          | Status                           |
+| :------------------------- | :------------------------ | :-------------------------------------- | :------------------------------------------------------------------------ | :------------------------------- |
+| Coletor de cartucho        | `[REVISAR COM ASPIRAMAQ]` | Filtro de cartucho `[código a definir]` | Pó fino seco, alta área filtrante em pouco espaço                         | Código pendente                  |
+| **Zigzag** (plissado)      | `[REVISAR COM ASPIRAMAQ]` | `MID-PLI-240` (plissado membrana PTFE)  | Pó ultrafino/submicrométrico, alta eficiência (99,99% ≥0,5 µm), T ≤ 120°C | Nome confirmado; código pendente |
+| Coletor de mangas          | `[REVISAR COM ASPIRAMAQ]` | Mangas têxteis (ver §1)                 | Maioria dos despoeiramentos industriais; grande volume                    | Código pendente                  |
+| Coletor metálico / Colmeia | `[REVISAR COM ASPIRAMAQ]` | `FM-COLM-595`                           | Pré-filtragem, coifa, névoa de óleo grosso (G1/MERV1)                     | Código pendente                  |
 
 ### 2.1 Filtro de cartucho — pendência de registro
 
@@ -50,12 +50,12 @@ Enquanto não houver código oficial, o agente deve **bloquear** a recomendaçã
 
 ## 3. REGRAS DE COERÊNCIA (complementam §7.2 da base principal)
 
-| ID | Regra | Ação se violada |
-| :-- | :-- | :-- |
-| **T09** | Coletor de **cartucho** usa **somente filtro de cartucho**; coletor de **mangas** usa **somente manga**; coletor **metálico/colmeia** usa **somente** `FM-COLM-595`. | **BLOQUEAR** — propor o elemento da família correta |
-| **T09.1** | Filtro **plissado `MID-PLI-240`** é **exclusivo da linha "zigzag"**. Proibido em cartucho, mangas ou metálico. | **BLOQUEAR** — se a aplicação exige plissado, especificar a linha zigzag; senão, escolher elemento da família do coletor |
-| **T09.2** | Filtro de **cartucho** é **exclusivo do coletor de cartucho**. Proibido em zigzag, mangas ou metálico. | **BLOQUEAR** — usar o elemento da família correspondente |
-| **T11** | Não há código oficial de filtro de cartucho na base. Enquanto pendente, **não inventar ID** de cartucho. | **BLOQUEAR** e pedir validação técnica (Hiroshi/ASPIRAMAQ) |
+| ID        | Regra                                                                                                                                                                | Ação se violada                                                                                                          |
+| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
+| **T09**   | Coletor de **cartucho** usa **somente filtro de cartucho**; coletor de **mangas** usa **somente manga**; coletor **metálico/colmeia** usa **somente** `FM-COLM-595`. | **BLOQUEAR** — propor o elemento da família correta                                                                      |
+| **T09.1** | Filtro **plissado `MID-PLI-240`** é **exclusivo da linha "zigzag"**. Proibido em cartucho, mangas ou metálico.                                                       | **BLOQUEAR** — se a aplicação exige plissado, especificar a linha zigzag; senão, escolher elemento da família do coletor |
+| **T09.2** | Filtro de **cartucho** é **exclusivo do coletor de cartucho**. Proibido em zigzag, mangas ou metálico.                                                               | **BLOQUEAR** — usar o elemento da família correspondente                                                                 |
+| **T11**   | Não há código oficial de filtro de cartucho na base. Enquanto pendente, **não inventar ID** de cartucho.                                                             | **BLOQUEAR** e pedir validação técnica (Hiroshi/ASPIRAMAQ)                                                               |
 
 > **Relação com regras existentes:** estas regras detalham e substituem o T09 genérico ("cartucho/plissado ⇒ mídia cartucho/plissada") que tratava cartucho e plissado como uma família só. A partir de agora, **cartucho e plissado/zigzag são famílias separadas**.
 
